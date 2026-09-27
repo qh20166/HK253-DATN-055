@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Header thanh trình bày: nền surface (sáng/tối tự đổi theo mode), không gradient —
+     đồng bộ phong cách trắng-tím của bộ UI mẫu. Icon/text dùng @color/on_surface. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/surface" />
+    <corners
+        android:bottomLeftRadius="22dp"
+        android:bottomRightRadius="22dp" />
+</shape>

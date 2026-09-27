@@ -1,0 +1,488 @@
+<resources>
+    <string name="app_name">TraffiGo</string>
+
+    <!-- Onboarding -->
+    <string name="onb_skip">Bỏ qua</string>
+    <string name="onb_continue">Tiếp tục</string>
+    <string name="onb_sign_in">Đăng nhập</string>
+
+    <!-- Login screen -->
+    <string name="login_title">Chào mừng trở lại 👋</string>
+    <string name="login_subtitle">Đăng nhập vào tài khoản của bạn</string>
+    <string name="label_email">Email</string>
+    <string name="hint_email">Email của bạn</string>
+    <string name="label_password">Mật khẩu</string>
+    <string name="hint_password">Mật khẩu của bạn</string>
+    <string name="btn_login">Đăng nhập</string>
+    <string name="btn_sign_in_google">Đăng nhập với Google</string>
+    <string name="tv_forgot_password">Quên mật khẩu?</string>
+    <string name="tv_no_account">Chưa có tài khoản? Đăng ký</string>
+    <string name="tv_or_with">Hoặc với</string>
+    <string name="err_google_auth">Lỗi xác thực Google</string>
+    <string name="err_fill_all">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="err_wrong_credentials">Sai tài khoản hoặc mật khẩu</string>
+    <string name="err_firebase">Lỗi kết nối Firebase</string>
+
+    <!-- Main screen -->
+    <string name="greeting_morning">Chào buổi sáng,</string>
+    <string name="greeting_afternoon">Chào buổi chiều,</string>
+    <string name="greeting_evening">Chào buổi tối,</string>
+    <string name="default_username">Người dùng</string>
+    <string name="card_nav_title">Chỉ đường</string>
+    <string name="card_nav_subtitle">Tìm tuyến đường tối ưu nhất</string>
+    <string name="card_map_title">Bản đồ</string>
+    <string name="card_map_subtitle">Trực quan hóa giao thông</string>
+    <string name="card_news_title">Tin tức</string>
+    <string name="card_news_subtitle">Tin tức &amp; sự kiện giao thông</string>
+    <string name="card_offline_title">Bản đồ ngoại tuyến</string>
+    <string name="hero_home_title">Nhà</string>
+    <string name="hero_home_subtitle_empty">Chưa lưu địa chỉ nhà — nhấn để lưu</string>
+    <string name="hero_work_title">Công ty</string>
+    <string name="hero_work_subtitle_empty">Chưa lưu địa chỉ công ty — nhấn để lưu</string>
+    <string name="hero_choice_go_from">Đi từ đây</string>
+    <string name="hero_choice_go_from_sub">Dùng làm điểm xuất phát</string>
+    <string name="hero_choice_go_to">Đi đến đây</string>
+    <string name="hero_choice_go_to_sub">Dùng làm điểm đến</string>
+    <string name="hero_choice_view_map">Xem trên bản đồ</string>
+    <string name="hero_choice_view_map_sub">Chỉ xem vị trí, không chỉ đường</string>
+    <string name="history_title">Lịch sử lộ trình</string>
+    <string name="history_empty_title">Chưa có lộ trình nào</string>
+    <string name="history_empty_subtitle">Các tuyến đường bạn đã đi sẽ lưu lại ở đây</string>
+    <string name="time_just_now">Vừa xong</string>
+    <string name="time_minutes_ago">%d phút trước</string>
+    <string name="time_hours_ago">%d giờ trước</string>
+    <string name="time_days_ago">%d ngày trước</string>
+    <string name="bottom_nav_history">Lịch sử</string>
+    <string name="favorites_title">Địa điểm yêu thích</string>
+    <string name="favorites_add">Thêm</string>
+    <string name="favorites_name_hint">Đặt tên (vd: Trường, Gym…)</string>
+    <string name="favorites_dialog_title">Đặt tên địa điểm</string>
+    <string name="favorites_delete_title">Xoá địa điểm yêu thích?</string>
+    <string name="favorites_delete_msg">Xoá \"%1$s\" khỏi danh sách yêu thích?</string>
+    <string name="toast_name_required">Vui lòng nhập tên</string>
+    <string name="quick_utils_title">Tiện ích nhanh</string>
+    <string name="quick_voice">Trợ lý giọng nói</string>
+    <string name="quick_heatmap">Xem bản đồ</string>
+    <string name="quick_offline">Ngoại tuyến</string>
+    <string name="quick_ride_title">Gọi xe nhanh</string>
+    <string name="bottom_nav_home">Trang chủ</string>
+    <string name="bottom_nav_directions">Chỉ đường</string>
+    <string name="bottom_nav_news">Tin tức</string>
+    <string name="bottom_nav_settings">Cài đặt</string>
+    <string name="cd_notifications">Thông báo</string>
+    <string name="notifications_title">Thông báo</string>
+    <string name="notifications_empty_title">Chưa có thông báo nào</string>
+    <string name="notifications_empty_subtitle">Cảnh báo kẹt xe và cập nhật tuyến đường sẽ xuất hiện ở đây</string>
+    <string name="card_offline_subtitle">Dùng không cần internet</string>
+
+    <!-- Account bottom sheet -->
+    <string name="account_default_name">Tên Người Dùng</string>
+    <string name="account_default_email">user@email.com</string>
+    <string name="account_profile">Thông tin cá nhân</string>
+    <string name="account_profile_sub">Xem và chỉnh sửa hồ sơ</string>
+    <string name="account_appearance">Giao diện</string>
+    <string name="account_appearance_sub">Tùy chỉnh màu sắc &amp; hình nền</string>
+    <string name="account_logout">Đăng xuất</string>
+
+    <!-- Customize sheet -->
+    <string name="customize_title">Cá nhân hóa giao diện</string>
+    <string name="customize_theme">🎨  Màu chủ đạo</string>
+    <string name="theme_hero_purple">Tím</string>
+    <string name="theme_hero_blue">Xanh dương</string>
+    <string name="theme_hero_green">Xanh lá</string>
+    <string name="theme_hero_orange">Cam</string>
+    <string name="customize_text_color">✏️  Màu chữ</string>
+    <string name="customize_font_size">🔡  Cỡ chữ</string>
+    <string name="font_small">Nhỏ</string>
+    <string name="font_normal">Mặc định</string>
+    <string name="font_large">Lớn</string>
+    <string name="customize_corner">⬛  Bo góc thẻ</string>
+    <string name="corner_sharp">Góc nhọn</string>
+    <string name="corner_round">Bo tròn</string>
+    <string name="corner_pill">Bo nhiều</string>
+    <string name="customize_language">🌐  Ngôn ngữ</string>
+
+    <!-- Navigation screen -->
+    <string name="nav_title">LỘ TRÌNH</string>
+    <string name="nav_step_start">Bắt đầu hành trình</string>
+    <string name="nav_step_choose_dest">Bạn muốn đi đâu?</string>
+    <string name="nav_step_route">Lộ trình</string>
+    <string name="nav_address_placeholder">Chạm để chọn vị trí...</string>
+    <string name="nav_current_location">Vị trí hiện tại</string>
+    <string name="nav_confirm_origin">Xác nhận điểm đi</string>
+    <string name="nav_confirm_destination">Xác nhận điểm đến</string>
+    <string name="nav_label_duration">THỜI GIAN</string>
+    <string name="nav_label_distance">KHOẢNG CÁCH</string>
+    <string name="nav_placeholder_duration">-- phút</string>
+    <string name="nav_placeholder_distance">-- km</string>
+    <string name="nav_book_service">Đặt dịch vụ</string>
+    <string name="nav_find_new">Tìm đường mới</string>
+    <string name="nav_finding">Đang tìm đường...</string>
+    <string name="nav_not_found_title">Không tìm thấy đường</string>
+    <string name="nav_find_failed">Tìm đường thất bại</string>
+    <string name="nav_minutes">%1$d phút</string>
+    <!-- Dẫn đường turn-by-turn -->
+    <string name="nav_start">Bắt đầu dẫn đường</string>
+    <string name="nav_stop">Dừng dẫn đường</string>
+    <string name="nav_arrived">Bạn đã đến nơi.</string>
+    <string name="nav_arriving">Sắp đến nơi</string>
+    <string name="nav_rerouting">Đang tìm lại đường…</string>
+    <string name="nav_in_meters">Sau %1$d mét</string>
+    <string name="nav_meters">%1$d m</string>
+    <string name="nav_maneuver_icon">Hướng rẽ</string>
+    <!-- Báo cáo sự cố giao thông (cộng đồng) -->
+    <string name="incident_report_title">Báo sự cố tại đây</string>
+    <string name="incident_type_jam">Kẹt xe</string>
+    <string name="incident_type_accident">Tai nạn</string>
+    <string name="incident_type_flood">Ngập nước</string>
+    <string name="incident_type_police">CSGT</string>
+    <string name="incident_type_hazard">Vật cản / Nguy hiểm</string>
+    <string name="incident_report_subtitle">Báo tại điểm giữa bản đồ</string>
+    <string name="incident_label_jam">Kẹt xe</string>
+    <string name="incident_label_accident">Tai nạn</string>
+    <string name="incident_label_flood">Ngập nước</string>
+    <string name="incident_label_hazard">Vật cản</string>
+    <string name="incident_label_police">CSGT</string>
+    <string name="nav_incident_ahead_tts">Phía trước có %1$s</string>
+    <string name="nav_incident_ahead">⚠️ Phía trước có %1$s (còn ~%2$d m)</string>
+    <string name="incident_reported">Đã báo sự cố. Cảm ơn bạn!</string>
+    <string name="incident_report_failed">Không gửi được báo cáo</string>
+    <string name="incident_login_required">Cần đăng nhập để báo sự cố</string>
+    <string name="incident_remove">Gỡ báo cáo</string>
+    <string name="incident_still_there">Vẫn còn</string>
+    <string name="incident_removed">Đã gỡ báo cáo</string>
+    <string name="incident_confirmed">Cảm ơn đã xác nhận</string>
+    <string name="incident_reported_ago">Báo %1$s</string>
+    <string name="incident_votes_summary">👍 %1$d  ·  👎 %2$d</string>
+    <string name="incident_downvote">Không còn nữa</string>
+    <string name="incident_downvote_recorded">Đã ghi nhận phản hồi của bạn</string>
+    <string name="cd_report_incident">Báo sự cố giao thông</string>
+    <string name="nav_gps_lost">Đang tìm tín hiệu GPS…</string>
+    <string name="nav_arrive_at">đến %1$s</string>
+    <string name="nav_voice_on">Đã bật giọng nói</string>
+    <string name="nav_voice_off">Đã tắt giọng nói</string>
+    <string name="cd_toggle_voice">Bật/tắt giọng nói</string>
+    <string name="nav_reroute_failed">Không tìm lại được đường. Kiểm tra kết nối rồi thử lại.</string>
+    <string name="nav_add_stop">➕ Thêm điểm dừng</string>
+    <string name="nav_add_stop_count">➕ Thêm điểm dừng (%1$d)</string>
+    <string name="nav_stop_added">Đã thêm điểm dừng %1$d</string>
+    <string name="nav_stop_label">Điểm dừng %1$d</string>
+    <string name="toast_select_stop">Chạm chọn một điểm trên bản đồ trước</string>
+
+    <!-- Chọn loại phương tiện khi tìm đường (Ô tô = DRIVE, Xe máy = TWO_WHEELER, Đi bộ = WALK) -->
+    <string name="nav_vehicle_car">Ô tô</string>
+    <string name="nav_vehicle_motorbike">Xe máy</string>
+    <string name="nav_vehicle_walk">Đi bộ</string>
+    <!-- Google ghi rõ: chỉ đường đi bộ/xe máy đều đang beta, không riêng xe máy -->
+    <string name="nav_vehicle_beta_note">Chỉ đường chế độ này đang trong giai đoạn thử nghiệm (beta) của Google Maps, có thể chưa tối ưu hoàn toàn.</string>
+
+    <!-- Ước tính chi phí chuyến đi -->
+    <string name="nav_avoid_tolls">Tránh phí cầu đường</string>
+    <string name="nav_route_cost_estimate">Ước tính nhiên liệu: ~%1$s đ</string>
+
+    <!-- Địa điểm lân cận theo danh mục -->
+    <string name="nearby_title">Địa điểm lân cận</string>
+    <string name="quick_nearby">Gần đây</string>
+    <string name="nearby_cat_gas">Xăng</string>
+    <string name="nearby_cat_atm">ATM</string>
+    <string name="nearby_cat_food">Ăn uống</string>
+    <string name="nearby_cat_hospital">Bệnh viện</string>
+    <string name="nearby_cat_parking">Bãi đỗ xe</string>
+    <string name="nearby_empty_title">Chưa có kết quả</string>
+    <string name="nearby_empty_subtitle">Chọn một danh mục ở trên để tìm địa điểm gần bạn</string>
+    <string name="nearby_no_results">Không tìm thấy địa điểm nào gần đây</string>
+    <string name="nearby_searching">Đang tìm…</string>
+
+    <!-- Đỗ xe ở đây -->
+    <string name="quick_parking">Đỗ xe</string>
+    <string name="parking_label">Vị trí xe</string>
+    <string name="parking_title">Xe đang đỗ ở đây</string>
+    <string name="parking_saved">Đã lưu vị trí đỗ xe</string>
+    <string name="parking_save_failed">Không lưu được vị trí đỗ xe</string>
+    <string name="parking_removed">Đã xoá điểm đỗ xe</string>
+    <string name="parking_navigate">Dẫn đường về xe</string>
+    <string name="parking_clear">Xoá điểm đỗ</string>
+    <string name="parking_locating">Đang xác định vị trí…</string>
+    <string name="parking_permission_needed">Cần quyền vị trí để lưu điểm đỗ xe</string>
+    <string name="parking_parked_at">Đã đỗ lúc %1$s</string>
+    <string name="parking_distance_suffix"> · cách bạn ~%1$s</string>
+
+    <!-- Đồng hồ tốc độ -->
+    <string name="speed_unit">km/h</string>
+    <string name="speed_limit_changed">Ngưỡng cảnh báo tốc độ: %1$d km/h</string>
+    <string name="speed_overlimit_warning">Bạn đang chạy quá tốc độ</string>
+
+    <!-- Giới hạn tốc độ + đường một chiều theo đoạn đường (dữ liệu OSM) -->
+    <string name="nav_oneway_badge">⚠ Một chiều</string>
+    <string name="nav_speed_limit_voice">Giới hạn tốc độ %1$d</string>
+    <string name="nav_oneway_voice">Đoạn đường một chiều, chú ý hướng đi</string>
+    <string name="cd_speed_limit_badge">Biển báo giới hạn tốc độ</string>
+
+    <!-- Nghe bài báo (TTS) -->
+    <string name="news_listen">Nghe bài viết</string>
+    <string name="news_stop_listening">Dừng đọc</string>
+    <string name="ml_server_url_title">Địa chỉ server ML</string>
+    <string name="ml_server_url_hint">Nhập URL dạng http://192.168.1.10:8000 (cùng WiFi với máy chạy server). Bỏ dùng mặc định? Nhập http://10.0.2.2:8000.</string>
+    <string name="ml_server_url_saved">Đã lưu địa chỉ server ML</string>
+    <string name="news_extracting">Đang lấy nội dung…</string>
+    <string name="ml_status_checking">● Đang kiểm tra server ML…</string>
+    <string name="ml_status_online">● Server ML: đang hoạt động</string>
+    <string name="ml_status_offline">● Server ML: ngoại tuyến</string>
+    <string name="news_extract_failed">Không đọc được nội dung bài này</string>
+    <string name="label_ml_forecast">DỰ BÁO ML (SERVER)</string>
+    <string name="ml_loading">Đang hỏi ML server…</string>
+    <string name="ml_offline">Server ML không khả dụng</string>
+    <string name="ml_forecast_speed">≈ %s km/h · Mức: %s</string>
+    <string name="ml_forecast_detail">Cụm giao thông #%d · Rủi ro sự cố: %s</string>
+    <string name="ml_level_high">kẹt cao</string>
+    <string name="ml_level_moderate">trung bình</string>
+    <string name="ml_level_low">thoáng</string>
+    <string name="ml_risk_low">THẤP</string>
+    <string name="ml_risk_medium">TRUNG BÌNH</string>
+    <string name="ml_risk_high">CAO</string>
+    <string name="nav_ml_pick">ML server đề xuất tuyến #%d — đã chuyển</string>
+    <string name="voice_tts_unavailable">Không tìm thấy bộ đọc tiếng nói trên máy — phản hồi bằng giọng nói không khả dụng</string>
+    <string name="cd_listen_article">Nghe bài viết</string>
+    <string name="cd_news_settings">Cài đặt đọc báo</string>
+    <string name="news_settings_title">🎧  Cài đặt đọc báo</string>
+    <string name="news_settings_speed">Tốc độ đọc</string>
+    <string name="speed_075">0.75x</string>
+    <string name="speed_100">1.0x</string>
+    <string name="speed_125">1.25x</string>
+    <string name="speed_150">1.5x</string>
+    <string name="news_read_no_articles">Hiện chưa có bài viết nào để đọc trong mục này</string>
+    <string name="toast_no_steps">Tuyến này không có dữ liệu chỉ đường chi tiết</string>
+    <string name="toast_no_route_to_start">Chưa có lộ trình để dẫn đường</string>
+
+    <!-- Trợ lý giọng nói -->
+    <string name="voice_listening">Đang nghe…</string>
+    <string name="voice_processing">Đang xử lý…</string>
+    <string name="voice_didnt_catch">Mình chưa nghe rõ, thử lại nhé</string>
+    <string name="voice_error">Có lỗi xảy ra, thử lại sau</string>
+    <string name="voice_no_recognizer">Thiết bị không hỗ trợ nhận dạng giọng nói</string>
+    <string name="voice_need_mic">Cần cấp quyền micro để dùng giọng nói</string>
+    <string name="voice_no_gemini_key">Chưa cấu hình Gemini API key trong AndroidManifest</string>
+    <string name="voice_hint">Chạm ra ngoài để hủy</string>
+    <string name="voice_mic_cd">Trợ lý giọng nói</string>
+    <string name="voice_fab_label">Nói</string>
+    <string name="voice_finding_place">Đang tìm \"%1$s\"…</string>
+    <string name="voice_place_not_found">Không tìm thấy \"%1$s\"</string>
+    <string name="voice_loading_saved">Đang tải địa điểm đã lưu…</string>
+    <string name="voice_no_saved_home">Bạn chưa lưu địa chỉ nhà</string>
+    <string name="voice_no_saved_work">Bạn chưa lưu địa chỉ công ty</string>
+    <string name="voice_need_login">Vui lòng đăng nhập để dùng địa điểm đã lưu</string>
+    <string name="voice_clarify_default">Bạn muốn đi đâu?</string>
+    <string name="voice_unknown">Xin lỗi, mình chưa hiểu yêu cầu</string>
+    <string name="voice_ack_navigate">Đang tìm đường tới %1$s</string>
+    <string name="voice_ack_start_nav">Bắt đầu dẫn đường</string>
+    <string name="voice_ack_stop_nav">Đã dừng dẫn đường</string>
+    <string name="voice_ack_switch">Đang đổi tuyến khác</string>
+    <string name="voice_ack_book">Mở đặt xe</string>
+    <string name="voice_ack_share">Chia sẻ vị trí</string>
+    <string name="voice_ack_map">Mở bản đồ giao thông</string>
+    <string name="voice_ack_news">Mở tin giao thông</string>
+    <string name="voice_ack_read_news">Đang mở bài báo mới nhất để đọc cho bạn nghe</string>
+    <string name="voice_ack_offline">Mở bản đồ ngoại tuyến</string>
+    <string name="toast_select_location_share">Vui lòng chọn vị trí trên bản đồ để chia sẻ!</string>
+    <string name="toast_search_error">Lỗi tìm kiếm</string>
+    <string name="toast_login_required">Vui lòng đăng nhập để sử dụng tính năng này</string>
+    <string name="place_home">nhà</string>
+    <string name="place_work">công việc</string>
+    <string name="saved_home_label">ĐỊA CHỈ NHÀ</string>
+    <string name="saved_work_label">ĐỊA CHỈ CÔNG VIỆC</string>
+    <string name="saved_home_title">Địa chỉ nhà</string>
+    <string name="saved_work_title">Địa chỉ công việc</string>
+    <string name="btn_use">Sử dụng</string>
+    <string name="btn_save_location">Lưu vị trí này</string>
+    <string name="saved_none">Chưa có địa chỉ</string>
+    <string name="btn_change">Thay đổi</string>
+    <string name="btn_add_address">Thêm địa chỉ</string>
+    <string name="no_saved_addr">Chưa có địa chỉ %1$s được lưu.</string>
+    <string name="confirm_save_place">Lưu vị trí này làm địa chỉ %1$s?\n\n%2$s</string>
+    <string name="toast_load_addr_error">Lỗi tải địa chỉ</string>
+    <string name="toast_place_saved">Đã lưu địa chỉ %1$s</string>
+    <string name="toast_save_addr_error">Lỗi lưu địa chỉ</string>
+    <string name="toast_places_not_init">Places API chưa khởi tạo, kiểm tra lại Key!</string>
+    <string name="toast_gps_off">Không thể xác định vị trí nếu GPS tắt!</string>
+    <string name="toast_locating">Đang xác định vị trí...</string>
+    <string name="marker_origin">Điểm xuất phát</string>
+    <string name="marker_destination">Điểm đến</string>
+    <string name="marker_current_location">Vị trí hiện tại</string>
+    <string name="toast_select_origin">Chọn điểm xuất phát trên bản đồ!</string>
+    <string name="toast_select_destination">Chọn điểm đến trên bản đồ!</string>
+    <string name="route_alt_pattern">Tuyến %1$d/%2$d — chạm để đổi tuyến</string>
+    <string name="toast_no_route_for_ride">Chưa có lộ trình để đặt xe!</string>
+    <string name="share_location_prefix">📍 Vị trí từ TraffiGo:</string>
+    <string name="share_view_on_map">🔗 Xem trên bản đồ:</string>
+    <string name="share_chooser">Chia sẻ vị trí qua...</string>
+    <string name="share_dialog_title">Chia sẻ vị trí</string>
+    <string name="share_static">Gửi vị trí hiện tại</string>
+    <string name="share_live_start">Bắt đầu chia sẻ trực tiếp</string>
+    <string name="share_live_stop">Dừng chia sẻ trực tiếp</string>
+    <string name="share_live_prefix">🔴 Tôi đang chia sẻ vị trí trực tiếp qua TraffiGo. Mở link này trong app TraffiGo để xem (cần cài TraffiGo):</string>
+    <string name="toast_live_share_started">Đã bắt đầu chia sẻ vị trí trực tiếp</string>
+    <string name="toast_live_share_stopped">Đã dừng chia sẻ vị trí trực tiếp</string>
+    <string name="live_viewer_title">Vị trí trực tiếp</string>
+    <string name="live_viewer_status_live">ĐANG CHIA SẺ TRỰC TIẾP</string>
+    <string name="live_viewer_status_stopped">Đã dừng chia sẻ</string>
+    <string name="live_viewer_updated_now">Vừa cập nhật</string>
+    <string name="live_viewer_updated_seconds">%d giây trước</string>
+    <string name="live_viewer_not_found">Không tìm thấy phiên chia sẻ này (có thể đã hết hạn)</string>
+    <string name="live_viewer_default_name">Người dùng TraffiGo</string>
+    <string name="toast_no_api_key">Không tìm thấy API Key!</string>
+    <string name="toast_no_route_found">Không tìm thấy tuyến đường!</string>
+    <string name="route_traffigo_pick">TraffiGo chọn tuyến ít tắc hơn tuyến nhanh nhất của Google</string>
+    <string name="route_alt_count">Có %1$d tuyến thay thế trên bản đồ</string>
+    <string name="toast_connection_error">Lỗi kết nối</string>
+    <string name="cong_heavy">⚠️ Có đoạn tắc nghẽn nặng — ước tính thêm ~%1$d phút</string>
+    <string name="cong_moderate">🟡 Một số đoạn mật độ cao</string>
+    <string name="cong_clear">✅ Tuyến đường thông thoáng</string>
+    <string name="route_quality_suffix"> · Sức khỏe tuyến: %1$s</string>
+
+    <!-- Traffic map screen -->
+    <string name="map_title">TÌNH TRẠNG GIAO THÔNG</string>
+    <string name="label_speed">TỐC ĐỘ</string>
+    <string name="label_status">TÌNH TRẠNG</string>
+    <string name="placeholder_speed">-- km/h</string>
+    <string name="placeholder_status">--</string>
+    <string name="status_free_flow">Thông thoáng</string>
+    <string name="status_heavy">Kẹt xe nặng</string>
+    <string name="status_moderate">Mật độ cao</string>
+    <string name="search_hint">Tìm địa điểm, con đường...</string>
+    <string name="toast_place_not_found">Không tìm thấy địa điểm!</string>
+    <string name="toast_heatmap_off">Đã tắt bản đồ nhiệt</string>
+    <string name="toast_data_not_ready">Dữ liệu chưa sẵn sàng, thử lại sau!</string>
+    <string name="toast_heatmap_on">Bản đồ nhiệt: đỏ = tắc nghẽn cao</string>
+
+    <!-- Offline maps -->
+    <string name="offline_title">Bản đồ ngoại tuyến</string>
+    <string name="offline_empty_title">Chưa có bản đồ nào</string>
+    <string name="offline_empty_sub">Nhấn + để lưu một khu vực bản đồ</string>
+    <string name="cd_add_map">Thêm bản đồ</string>
+    <string name="offline_saved_date">Lưu ngày: %1$s</string>
+    <string name="offline_size_placeholder">-- MB</string>
+    <string name="map_name_placeholder">Tên bản đồ</string>
+    <string name="date_placeholder">Ngày lưu</string>
+    <string name="cd_delete">Xóa</string>
+    <string name="dialog_delete_title">Xóa bản đồ</string>
+    <string name="dialog_delete_msg">Xóa bản đồ \"%1$s\"? Không thể hoàn tác.</string>
+    <string name="btn_delete">Xóa</string>
+    <string name="btn_cancel">Hủy</string>
+    <string name="btn_save">Lưu</string>
+    <string name="offline_detail_default_title">Bản đồ chi tiết</string>
+    <string name="offline_open_in_map">Mở trong bản đồ</string>
+    <string name="cd_offline_map">Bản đồ ngoại tuyến</string>
+    <string name="save_map_dialog_title">Lưu bản đồ</string>
+    <string name="save_map_dialog_desc">Đặt tên cho khu vực này để dễ dàng xem lại khi không có mạng.</string>
+    <string name="save_map_name_hint">Tên bản đồ</string>
+    <string name="btn_save_now">Lưu ngay</string>
+    <string name="save_region_title">Lưu vùng bản đồ này</string>
+    <string name="err_no_name">Bạn chưa đặt tên!</string>
+    <string name="err_name_exists">Tên bản đồ đã tồn tại, chọn tên khác!</string>
+    <string name="toast_creating_file">Đang khởi tạo tệp...</string>
+    <string name="toast_map_saved">Đã lưu bản đồ thành công!</string>
+    <string name="toast_save_file_error">Lỗi lưu tệp!</string>
+    <string name="toast_waiting_satellite">Đang đợi tín hiệu vệ tinh...</string>
+
+    <!-- Profile -->
+    <string name="profile_title">Hồ Sơ Cá Nhân</string>
+    <string name="profile_change_avatar">Đổi ảnh đại diện</string>
+    <string name="profile_label_name">Họ và Tên</string>
+    <string name="profile_hint_name">Nhập tên của bạn</string>
+    <string name="profile_label_phone">Số Điện Thoại</string>
+    <string name="profile_label_password">Mật khẩu</string>
+    <string name="profile_save">Lưu Thay Đổi</string>
+    <string name="toast_name_empty">Tên không được để trống!</string>
+    <string name="profile_updating">Đang cập nhật thông tin...</string>
+    <string name="toast_upload_img_error">Lỗi tải ảnh lên</string>
+    <string name="toast_update_success">Cập nhật thành công!</string>
+    <string name="toast_save_phone_error">Lỗi lưu số điện thoại</string>
+    <string name="toast_update_name_img_success">Cập nhật tên và ảnh thành công!</string>
+    <string name="toast_update_profile_error">Lỗi cập nhật hồ sơ</string>
+
+    <!-- News -->
+    <string name="news_title">TIN TỨC TỔNG HỢP</string>
+    <string name="news_category">GIAO THÔNG</string>
+    <string name="news_source_thanhnien">Nguồn: Báo Thanh Niên</string>
+    <string name="news_source_vnexpress">Nguồn: VnExpress</string>
+    <string name="news_source_generic">Nguồn: %1$s</string>
+
+    <!-- Danh mục tin tức -->
+    <string name="news_cat_traffic">Giao thông</string>
+    <string name="news_cat_current">Thời sự</string>
+    <string name="news_cat_business">Kinh doanh</string>
+    <string name="news_cat_sports">Thể thao</string>
+    <string name="news_cat_all">Tất cả</string>
+    <string name="news_empty_title">Chưa có tin nào</string>
+    <string name="news_empty_subtitle">Thử chọn danh mục khác hoặc kiểm tra kết nối mạng</string>
+    <string name="news_end_of_playlist">Đã đọc hết danh sách bài viết</string>
+
+    <!-- Ride service -->
+    <string name="ride_title">ĐẶT DỊCH VỤ</string>
+    <string name="ride_choose">Chọn hãng xe</string>
+    <string name="ride_destination_prefix">Đến: %1$s</string>
+    <string name="ride_grab_sub">Điền sẵn điểm đón &amp; đến</string>
+    <string name="ride_xanhsm_sub">Mở ứng dụng xe điện</string>
+    <string name="ride_be_sub">Mở ứng dụng be</string>
+    <string name="ride_default_origin">Điểm đón</string>
+    <string name="ride_default_dest">Điểm đến</string>
+    <string name="toast_app_not_installed">Bạn chưa cài ứng dụng, mở CH Play...</string>
+
+    <!-- Share location -->
+    <string name="share_title">Chia sẻ vị trí</string>
+    <string name="share_locating">Đang xác định vị trí...</string>
+    <string name="share_coord_placeholder">Tọa độ: --, --</string>
+    <string name="share_button">CHIA SẺ VỊ TRÍ NÀY</string>
+    <string name="toast_select_location">Vui lòng chọn một vị trí!</string>
+    <string name="marker_your_location">Vị trí của bạn</string>
+    <string name="share_getting_address">Đang lấy địa chỉ...</string>
+    <string name="share_my_location_prefix">📍 Vị trí của mình:</string>
+
+    <!-- Route details -->
+    <string name="route_fastest">Lộ trình nhanh nhất</string>
+    <string name="route_calculating">Đang tính toán thời gian...</string>
+    <string name="route_loading_data">Đang nạp dữ liệu giao thông...</string>
+    <string name="route_set_success">Lộ trình nhanh nhất đã được thiết lập.</string>
+    <string name="route_error_no_path">Lỗi: Không tìm thấy đường đi.</string>
+    <string name="toast_check_csv">Kiểm tra lại dữ liệu CSV!</string>
+    <string name="marker_start">Điểm đi</string>
+
+    <!-- Accessibility: content descriptions -->
+    <string name="cd_back">Quay lại</string>
+    <string name="cd_account">Tài khoản của bạn</string>
+    <string name="cd_show_hide_password">Hiện hoặc ẩn mật khẩu</string>
+    <string name="cd_home_shortcut">Về nhà</string>
+    <string name="cd_work_shortcut">Đến nơi làm việc</string>
+    <string name="cd_heatmap_toggle">Chuyển chế độ bản đồ nhiệt</string>
+    <string name="cd_my_location">Vị trí của tôi</string>
+    <string name="cd_search">Tìm kiếm</string>
+    <string name="cd_nav_icon">Biểu tượng chỉ đường</string>
+    <string name="cd_map_icon">Biểu tượng bản đồ</string>
+    <string name="cd_news_icon">Biểu tượng tin tức</string>
+    <string name="cd_offline_icon">Biểu tượng bản đồ ngoại tuyến</string>
+
+    <string name="profile_hint_new_password">Mật khẩu mới (để trống nếu không đổi)</string>
+    <string name="profile_password_too_short">Mật khẩu mới phải từ 6 ký tự trở lên</string>
+    <string name="profile_password_updated">Đã cập nhật mật khẩu</string>
+    <string name="profile_password_error">Không đổi được mật khẩu (cần đăng nhập lại)</string>
+
+    <!-- Onboarding -->
+    <string name="onboard_title_1">Tìm đường giờ đây dễ dàng hơn</string>
+    <string name="onboard_desc_1">Khám phá lộ trình tối ưu, tránh kẹt xe và đến nơi nhanh hơn.</string>
+    <string name="onboard_title_2">Cập nhật giao thông thời gian thực</string>
+    <string name="onboard_desc_2">Xem tình trạng giao thông trực tiếp, sự cố trên đường và gợi ý lộ trình thông minh.</string>
+    <string name="onboard_title_3">Bắt đầu hành trình</string>
+    <string name="onboard_desc_3">Di chuyển trong thành phố với chỉ dẫn chính xác và thông tin đường sá đáng tin cậy.</string>
+    <string name="onboard_continue">Tiếp tục</string>
+    <string name="onboard_get_started">Bắt đầu</string>
+
+    <!-- Bản đồ offline (tile thật) -->
+    <string name="offline_downloading">Đang tải bản đồ offline…</string>
+    <string name="offline_download_error">Tải tile bản đồ lỗi (kiểm tra mạng)</string>
+    <string name="offline_view_tiles">Xem bản đồ offline (zoom được)</string>
+
+    <!-- Màn hình tìm địa điểm tùy biến -->
+    <string name="search_empty">Nhập tên đường, địa điểm để tìm</string>
+    <string name="search_no_result">Không tìm thấy kết quả phù hợp</string>
+    <string name="cd_clear_search">Xóa nội dung tìm</string>
+</resources>

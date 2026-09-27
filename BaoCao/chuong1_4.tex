@@ -1,0 +1,447 @@
+% =====================================================================
+% CHƯƠNG 1 -- 4
+% =====================================================================
+
+\chapter{GIỚI THIỆU}
+
+\section{Động cơ của đề tài}
+Trong những năm gần đây, tình trạng ùn tắc giao thông tại các đô thị lớn như Thành phố Hồ Chí Minh ngày càng trở nên nghiêm trọng. Theo thống kê của Sở Giao thông Vận tải thành phố, lượng phương tiện cá nhân đăng ký mới tiếp tục gia tăng trong khi quỹ đất dành cho hạ tầng giao thông gần như đã bão hòa, khiến các tuyến động mạch như Nguyễn Văn Linh, Xa lộ Hà Nội hay Võ Văn Kiệt thường xuyên ở trạng thái quá tải vào giờ cao điểm. Hệ lụy của tình trạng này không chỉ dừng ở việc mất thời gian di chuyển mà còn bao gồm chi phí nhiên liệu lãng phí, phát thải khí nhà kính tăng cao và năng suất lao động của toàn thành phố bị ảnh hưởng.
+
+Để điều hành giao thông hiệu quả, cơ quan quản lý và chính người tham gia giao thông đều cần hiểu rõ \textit{quy luật biến động} của dòng xe và phân loại được các \textit{trạng thái giao thông} điển hình theo từng khu vực, từng thời điểm. Tuy nhiên, dữ liệu giao thông hiện đại thu thập từ các hệ thống GPS, cảm biến và nền tảng bản đồ số có đặc tính khổng lồ, đa chiều và biến đổi liên tục theo thời gian thực. Các phương pháp phân tích truyền thống hoặc thống kê mô tả đơn thuần gặp nhiều hạn chế trong việc bóc tách các đặc trưng phức tạp của mạng lưới giao thông đô thị, đặc biệt khi dữ liệu đến từ nhiều nguồn khác nhau với tần suất và độ tin cậy không đồng đều.
+
+Kỹ thuật gom cụm dữ liệu (clustering) trong học máy không giám sát cung cấp một hướng tiếp cận phù hợp cho bài toán này: hệ thống có thể tự động nhóm các đoạn đường vào những \textit{trạng thái giao thông} điển hình dựa trên sự tương đồng về tốc độ lưu thông, hạ tầng, thời tiết và ngữ cảnh thời gian, mà không cần gán nhãn thủ công. Từ đó, mỗi đoạn đường trên bản đồ được nhận diện thuộc ``vùng kẹt'', ``vùng thoáng'' hay các trạng thái trung gian, làm cơ sở cho tô màu bản đồ, định tuyến né kẹt và dự đoán tình trạng giao thông.
+
+Tuy nhiên, kết quả phân tích chỉ thực sự tạo giá trị khi được đưa tới tay người tham gia giao thông \textit{đúng lúc, đúng nơi, ở dạng dễ hiểu}. Xuất phát từ thực tế đó, đề tài không dừng lại ở khâu nghiên cứu mô hình mà tiếp tục xây dựng một hệ thống ứng dụng hoàn chỉnh: ứng dụng di động TraffiGo dành cho người dùng đi đường và một server học máy cung cấp dịch vụ dự đoán, đóng vai trò cầu nối giữa kết quả gom cụm và trải nghiệm thực tế của người dùng.
+
+\section{Mục tiêu}
+Từ động cơ trên, đề tài đặt ra các mục tiêu cụ thể sau:
+\begin{enumerate}[label=\textbf{(\arabic*)},leftmargin=2cm,itemsep=2pt]
+ \item Xây dựng pipeline thu thập và tiền xử lý dữ liệu giao thông đa nguồn tại TP.HCM, kết hợp dữ liệu động từ TomTom Traffic API, dữ liệu hạ tầng từ OpenStreetMap và Mapbox, dữ liệu thời tiết từ Open-Meteo.
+ \item Nghiên cứu, so sánh và đánh giá năm thuật toán gom cụm (K-Means, MiniBatchKMeans, DBSCAN, Gaussian Mixture Model, Agglomerative Clustering) trên dữ liệu thực tế của TP.HCM; lựa chọn mô hình tốt nhất theo các chỉ số Silhouette Score, Davies--Bouldin Index, Calinski--Harabasz Index và các chỉ số ngoại bộ ARI, NMI.
+ \item Hiện thực mô hình gom cụm tốt nhất lên ứng dụng di động TraffiGo: tô màu sáu mức trạng thái giao thông trên bản đồ, định tuyến né khu vực kẹt, chấm điểm sức khỏe tuyến đường và ước lượng chi phí nhiên liệu.
+ \item Xây dựng server Machine Learning bằng FastAPI cung cấp bộ REST API dự đoán tốc độ lưu thông, mức độ kẹt xe, rủi ro sự cố giao thông và gợi ý tuyến đường tối ưu; tích hợp server vào ứng dụng di động theo kiến trúc client--server có cơ chế fallback an toàn.
+ \item Kiểm thử toàn diện hệ thống ở cả mức đơn vị lẫn mức chức năng trên thiết bị giả lập trước khi bàn giao và báo cáo.
+\end{enumerate}
+
+\section{Phạm vi}
+Về dữ liệu, đề tài tập trung vào khu vực Thành phố Hồ Chí Minh với tập snapshot giao thông thu thập trong khoảng 09/03--15/04/2026; dữ liệu được lấy gián tiếp qua các API trung gian (TomTom, OpenStreetMap, Mapbox, Open-Meteo), chưa khai thác trực tiếp camera giám sát hay cảm biến vật lý đặt tại nút giao thông. Về bài toán, đề tài tập trung vào phân tích và nhận diện trạng thái giao thông bằng gom cụm, cùng bài toán dự đoán tốc độ/mức kẹt ở mức theo đoạn đường; các bài toán nâng cao như dự báo chuỗi thời gian dài hạn (LSTM, Graph Neural Network), tối ưu tín hiệu đèn giao thông hay điều phối giao thông tự động nằm ngoài phạm vi hiện tại và được ghi nhận là hướng phát triển. Về sản phẩm, ứng dụng di động nhắm tới người dùng cá nhân trên nền Android; phiên bản web dành cho nhà quản trị và các bài toán triển khai quy mô lớn (đa thành phố, dữ liệu phân tán) chưa thuộc phạm vi của đồ án này.
+
+\section{Ý nghĩa}
+
+\subsection{Ý nghĩa thực tiễn}
+Đối với người tham gia giao thông, hệ thống cung cấp một ứng dụng di động tích hợp đầy đủ các nhu cầu khi đi đường: bản đồ trạng thái giao thông trực quan với sáu mức màu phân biệt theo cụm, định tuyến ưu tiên đoạn thoáng, ước lượng thời gian sát thực tế, ước tính chi phí nhiên liệu, tin tức giao thông tổng hợp từ năm báo điện tử, trợ lý giọng nói, gọi xe nhanh tới các nhà cung cấp phổ biến và bản đồ ngoại tuyến. Kết quả phân cụm giúp người dùng \textit{hiểu} vì sao một tuyến được đề xuất thay vì chỉ nhận kết quả vô cảm. Đối với nhà quản lý và nhà phát triển, bộ API Machine Learning và pipeline dữ liệu mở là nền tảng sẵn sàng cho các ứng dụng giao thông thông minh (ITS) tiếp theo, không bị khóa cứng vào một sản phẩm thương mại nào.
+
+\subsection{Ý nghĩa khoa học}
+Về mặt học thuật, đề tài đóng góp ba điểm chính:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2cm,itemsep=2pt]
+ \item đánh giá có hệ thống năm thuật toán gom cụm trên dữ liệu giao thông thực tế của TP.HCM với bộ 5--10 chỉ số đánh giá nội bộ và ngoại bộ, thay vì dừng ở một chỉ số duy nhất;
+ \item chứng minh hiệu quả của bước lựa chọn thuộc tính (Feature Selection) trong bài toán gom cụm giao thông --- Silhouette Score cải thiện từ 0{,}1310 lên 0{,}4183 khi giảm từ 40 xuống 10 thuộc tính;
+ \item chỉ ra rằng mô hình gom cụm ở dạng JSON (tâm cụm + tham số chuẩn hóa) có thể nhúng trực tiếp lên thiết bị di động để suy luận on-device, kết hợp với mô hình dự đoán giám sát phía server, tạo thành kiến trúc lai phù hợp với điều kiện mạng thực tế.
+\end{enumerate}
+
+\section{Cấu trúc báo cáo}
+Báo cáo gồm tám chương, được tổ chức theo cấu trúc chuẩn của biểu mẫu báo cáo Đồ án tốt nghiệp của Khoa KH\&KT Máy tính. Chương 1 giới thiệu động cơ, mục tiêu, phạm vi và ý nghĩa của đề tài. Chương 2 trình bày kiến thức và công nghệ nền tảng, bao gồm các kỹ thuật gom cụm, chuẩn hóa dữ liệu, lựa chọn thuộc tính, các chỉ số đánh giá và stack công nghệ của cả ứng dụng lẫn server. Chương 3 xem xét các công trình nghiên cứu và hệ thống thực tế liên quan, chỉ ra khoảng trống mà đề tài hướng tới. Chương 4 mô tả hệ thống đề xuất và các yêu cầu chức năng, phi chức năng, dữ liệu. Chương 5 trình bày phân tích nghiệp vụ, mô hình hóa tương tác và thiết kế hệ thống (kiến trúc, cơ sở dữ liệu, chi tiết bên trong, giao diện). Chương 6 mô tả hiện thực và kiểm thử, trình bày kết quả thực nghiệm của các mô hình cùng kết quả tích hợp trên ứng dụng. Chương 7 đánh giá hệ thống theo ưu điểm và hạn chế. Chương 8 tổng kết kết quả đạt được và định hướng phát triển. Cuối báo cáo là kế hoạch thực hiện, tài liệu tham khảo và hai phụ lục kỹ thuật.
+
+% =====================================================================
+\chapter{KIẾN THỨC VÀ CÔNG NGHỆ NỀN TẢNG}
+
+\section{Bài toán nhận diện trạng thái giao thông và hướng tiếp cận không giám sát}
+Trạng thái giao thông của một đoạn đường được đặc trưng bởi một vector thuộc tính gồm ba nhóm:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2cm,itemsep=2pt]
+ \item \textit{giao thông động} --- tốc độ hiện tại, tốc độ dòng tự do, chỉ số ùn tắc, độ chiếm dụng;
+ \item \textit{hạ tầng và hình học} --- số làn, giới hạn tốc độ, độ cong, độ dốc, số giao lộ, loại đường;
+ \item \textit{ngữ cảnh} --- thời điểm trong ngày, ngày trong tuần, thời tiết.
+\end{enumerate}
+Nếu có sẵn nhãn ``tắc/trung bình/thoáng'' cho từng đoạn đường, bài toán trở thành phân loại có giám sát. Trên thực tế, việc gán nhãn thủ công cho hàng nghìn đoạn đường là bất khả thi và thiếu khách quan; hơn nữa, ranh giới giữa các trạng thái giao thông vốn mờ và phụ thuộc từng đô thị. Học máy không giám sát, đặc biệt là gom cụm, cho phép hệ thống \textit{tự khám phá} các trạng thái từ chính dữ liệu: những đoạn đường có hành vi tương tự sẽ được xếp vào cùng một nhóm, và mỗi nhóm sau đó được diễn giải ngược lại thành trạng thái có ý nghĩa thực tiễn (ví dụ ``kẹt hoàn toàn'', ``chậm và đông'', ``thoáng'').
+
+\section{Gom cụm dữ liệu}
+Gom cụm là bài toán học máy không giám sát~\cite{han}: cho tập dữ liệu $X = \{x_1, x_2, \dots, x_n\} \subset \mathbb{R}^d$, cần phân chia các điểm vào $K$ nhóm sao cho các điểm trong cùng một cụm tương tự nhau và khác biệt với các điểm thuộc cụm khác. Độ tương tự thường được đo bằng khoảng cách Euclid:
+\begin{equation}
+d(x_i, x_j) = \sqrt{\sum_{l=1}^{d} \left(x_{il} - x_{jl}\right)^2}.
+\label{eq:euclid}
+\end{equation}
+Tùy giả định về hình dạng cụm và bản chất dữ liệu, các thuật toán gom cụm chia thành bốn nhóm chính: phân hoạch, mật độ, mô hình xác suất và phân cấp. Đề tài khảo sát một đại diện tiêu biểu cho mỗi nhóm.
+
+\subsection{Nhóm phân hoạch: K-Means}
+K-Means~\cite{macqueen, lloyd} là thuật toán gom cụm phổ biến nhất nhờ chi phí tính toán thấp và khả năng mở rộng tốt. Với số cụm $K$ xác định trước, mục tiêu của K-Means là tối thiểu hóa tổng bình phương khoảng cách từ mỗi điểm đến tâm cụm của nhóm nó thuộc về:
+\begin{equation}
+J = \sum_{k=1}^{K} \sum_{x_i \in C_k} \lVert x_i - \mu_k \rVert^2 \rightarrow \min,
+\label{eq:kmeans}
+\end{equation}
+trong đó $C_k$ là cụm thứ $k$ và $\mu_k$ là tâm cụm tương ứng. Thuật toán hoạt động theo hai bước lặp cho tới khi hội tụ:
+\begin{enumerate}[label=\textit{Bước \arabic*.},nosep]
+ \item \textit{Gán cụm}: mỗi điểm $x_i$ được gán vào cụm có tâm gần nhất, $k^* = \arg\min_k \lVert x_i - \mu_k \rVert^2$.
+ \item \textit{Cập nhật tâm}: $\mu_k$ mới bằng trung bình cộng của toàn bộ điểm thuộc cụm $k$.
+\end{enumerate}
+Vì bài toán~\eqref{eq:kmeans} là bài toán NP-khó, K-Means chỉ tìm nghiệm cục bộ phụ thuộc vào khởi tạo tâm ban đầu; trong thực nghiệm, thuật toán $k$-means++ được dùng để khởi tạo các tâm cách nhau hợp lý, giảm khả năng hội tụ vào nghiệm kém.\footnote{$k$-means++ chọn tâm đầu tiên ngẫu nhiên, các tâm tiếp theo được chọn với xác suất tỉ lệ thuận với bình phương khoảng cách tới tâm gần nhất đã chọn --- giúp các tâm phủ đều dữ liệu.} Độ phức tạp mỗi vòng lặp là $O(nKd)$ --- tuyến tính theo số điểm, phù hợp với tập dữ liệu hàng trăm nghìn mẫu của đề tài. Hạn chế chính của K-Means là phải xác định $K$ trước và giả định cụm có dạng hình cầu, các cụm có kích thước gần tương đương.
+
+Hình~\ref{fig:kmeansdemo} minh họa cơ chế trên bằng một ví dụ hai chiều với ba cụm: từ ba tâm khởi tạo ban đầu (hình thoi rỗng), thuật toán lần lượt gán điểm vào tâm gần nhất rồi cập nhật lại tâm (hình thoi đặc); sau vài vòng lặp, các tâm hội tụ về trọng tâm thực của từng nhóm điểm. Cơ chế đơn giản này chính là nền tảng để gán \textit{trạng thái giao thông} cho từng đoạn đường ở các chương sau.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[scale=0.92]
+\tikzset{
+ ptA/.style={circle, fill=brand!75, inner sep=1.6pt},
+ ptB/.style={circle, fill=orangec!80, inner sep=1.6pt},
+ ptC/.style={circle, fill=greenc!75, inner sep=1.6pt},
+ cent/.style={diamond, draw=black!80, fill=white, inner sep=2.2pt, thick},
+ cent2/.style={diamond, draw=black, fill=black!70, inner sep=2.2pt},
+ arr/.style={-{Stealth[length=2mm]}, thick, black!60, dashed}
+}
+\foreach \x/\y in {0.3/0.4, 0.7/0.9, 1.1/0.3, 0.5/1.3, 1.4/1.0, 0.9/1.6, 1.6/0.6, 0.2/0.9, 1.2/1.4, 0.6/0.2}
+ \node[ptA] at (\x,\y) {};
+\foreach \x/\y in {3.6/1.8, 4.1/2.2, 4.5/1.6, 3.9/2.6, 4.7/2.4, 4.3/1.3, 3.5/2.4, 4.9/1.9, 4.0/1.9, 4.6/2.8}
+ \node[ptB] at (\x,\y) {};
+\foreach \x/\y in {0.9/3.4, 1.4/3.8, 1.0/4.2, 1.7/3.5, 1.3/4.5, 0.6/3.9, 1.9/4.0, 1.5/3.1, 2.0/3.7, 0.8/4.6}
+ \node[ptC] at (\x,\y) {};
+\node[cent] (c1) at (2.4,2.6) {};
+\node[cent] (c2) at (0.6,2.2) {};
+\node[cent] (c3) at (3.2,3.9) {};
+\node[cent2] at (0.9,0.9) {};
+\node[cent2] at (4.2,2.1) {};
+\node[cent2] at (1.3,3.9) {};
+\draw[arr] (c1) -- (1.6,1.6);
+\draw[arr] (c2) -- (0.9,3.0);
+\draw[arr] (c3) -- (4.1,2.9);
+\node[anchor=west, font=\scriptsize, black!70] at (5.2,3.9) {$\diamond$~tâm khởi tạo};
+\node[anchor=west, font=\scriptsize, black!70] at (5.2,3.5) {$\blacklozenge$~tâm sau hội tụ};
+\end{tikzpicture}
+\caption{Minh họa hai bước gán cụm và cập nhật tâm của K-Means trên dữ liệu hai chiều.}
+\label{fig:kmeansdemo}
+\end{figure}
+
+\subsection{Nhóm phân hoạch: MiniBatchKMeans}
+MiniBatchKMeans là biến thể tối ưu tốc độ của K-Means: thay vì dùng toàn bộ dữ liệu, mỗi vòng lặp chỉ sử dụng một lô con ngẫu nhiên (mini-batch) để gán cụm và cập nhật tâm theo tốc độ học giảm dần. Cách làm này giảm mạnh thời gian huấn luyện trên tập dữ liệu lớn, tuy nhiên do chỉ cập nhật tâm dựa trên tập con, kết quả có thể kém ổn định hơn K-Means truyền thống nếu kích thước lô quá nhỏ. Với dữ liệu giao thông có hàng trăm nghìn mẫu, MiniBatchKMeans là ứng viên đáng khảo sát khi cân nhắc giữa chất lượng và thời gian chạy.
+
+\subsection{Nhóm mật độ: DBSCAN}
+DBSCAN~\cite{ester} (Density-Based Spatial Clustering of Applications with Noise) phân cụm dựa trên mật độ điểm. Hai tham số điều khiển thuật toán: bán kính lân cận $\epsilon$ và số điểm tối thiểu \textit{minPts}. Một điểm được gọi là \textit{điểm lõi} nếu trong bán kính $\epsilon$ quanh nó có ít nhất \textit{minPts} điểm; các điểm lõi kết nối trực tiếp hoặc gián tiếp với nhau tạo thành cụm; những điểm không thuộc cụm nào được đánh dấu là nhiễu (noise). Ưu điểm nổi bật của DBSCAN là không cần xác định trước số cụm, phát hiện được cụm có hình dạng bất kỳ và có khả năng loại bỏ điểm ngoại lệ --- một đặc tính hữu ích với dữ liệu giao thông chứa các bản ghi bất thường. Nhược điểm là kết quả nhạy cảm với việc chọn $\epsilon$ và khó hoạt động ổn định khi mật độ dữ liệu không đồng đều giữa các vùng.
+
+\subsection{Nhóm mô hình xác suất: Gaussian Mixture Model}
+GMM~\cite{reynolds} giả định dữ liệu được sinh từ hỗn hợp $K$ phân phối Gaussian nhiều biến:
+\begin{equation}
+p(x) = \sum_{k=1}^{K} \pi_k \, \mathcal{N}(x \mid \mu_k, \Sigma_k), \qquad \sum_{k=1}^{K} \pi_k = 1,
+\label{eq:gmm}
+\end{equation}
+với $\pi_k$, $\mu_k$, $\Sigma_k$ lần lượt là trọng số, vector trung bình và ma trận hiệp phương sai của thành phần thứ $k$. Tham số được ước lượng bằng thuật toán EM (Expectation--Maximization): bước E tính xác suất hậu nghiệm $\gamma_{ik}$ rằng điểm $x_i$ thuộc thành phần $k$; bước M cập nhật lại $(\pi_k, \mu_k, \Sigma_k)$ dựa trên các xác suất này. Khác với K-Means gán cứng mỗi điểm vào đúng một cụm, GMM cho phép gán mềm theo xác suất và hỗ trợ cụm elip nhờ ma trận hiệp phương sai đầy đủ; đổi lại, chi phí tính toán và bộ nhớ cao hơn, và mô hình dễ bị overfitting khi số chiều lớn mà số mẫu không đủ.
+
+\subsection{Nhóm phân cấp: Agglomerative Clustering}
+Agglomerative Clustering thuộc nhóm phân cấp bottom-up: khởi đầu mỗi điểm dữ liệu là một cụm, sau đó thuật toán liên tục gộp hai cụm gần nhau nhất theo một tiêu chí liên kết (single-linkage, complete-linkage, average-linkage hoặc Ward) cho tới khi đạt số cụm mong muốn. Phương pháp này không yêu cầu khởi tạo ngẫu nhiên nên kết quả deterministic, đồng thời sinh ra cả cây phân cấp (dendrogram) giúp quan sát cấu trúc dữ liệu ở nhiều mức chi tiết. Tuy nhiên, độ phức tạp $O(n^2)$ đến $O(n^3)$ về thời gian và $O(n^2)$ về bộ nhớ khiến nó khó mở rộng cho tập dữ liệu rất lớn.
+
+\subsection{So sánh các thuật toán}
+Bảng~\ref{tab:cmp_alg} tổng hợp đặc tính của năm thuật toán khảo sát trên các tiêu chí then chốt của bài toán giao thông: số cụm xác định trước, hình dạng cụm, độ phức tạp và khả năng xử lý nhiễu.
+
+\begin{table}[h!]
+\centering
+\caption{So sánh đặc tính các thuật toán gom cụm khảo sát.}
+\label{tab:cmp_alg}
+\small
+\begin{tabularx}{\textwidth}{lcccX}
+\toprule
+\textbf{Thuật toán} & \textbf{Số cụm} & \textbf{Hình dạng} & \textbf{Độ phức tạp} & \textbf{Đặc điểm chính}\\
+ & & \textbf{cụm} & & \\
+\midrule
+K-Means & Có ($K$) & Hình cầu & $O(nKd)$ mỗi vòng & Nhanh, mở rộng tốt, nhạy khởi tạo\\
+MiniBatchKMeans & Có ($K$) & Hình cầu & $O(bKd)$ mỗi vòng & Nhanh hơn, kém ổn định hơn\\
+DBSCAN & Không & Bất kỳ & $O(n \log n)$ trung bình & Loại nhiễu tốt, nhạy $\epsilon$\\
+GMM & Có ($K$) & Elip & $O(nKd^2)$ mỗi vòng EM & Gán mềm, tốn bộ nhớ\\
+Agglomerative & Có ($K$) & Tùy linkage & $O(n^2)$--$O(n^3)$ & Deterministic, khó mở rộng\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Đánh giá mức phù hợp với bài toán giao thông}
+Đối chiếu với đặc điểm tập dữ liệu của đề tài --- hàng trăm nghìn mẫu, 10--40 chiều, các cụm kỳ vọng có dạng ``tâm tụm'' quanh các mức congestionIndex (vì bản chất giao thông là liên tục từ thoáng tới kẹt) --- có thể dự đoán trước mức phù hợp của từng nhóm thuật toán. K-Means phù hợp nhất về mặt lý thuyết: các trạng thái giao thông vốn phân tầng theo tốc độ tương đối nên cụm hình cầu với tâm là ``mức trạng thái'' phản ánh đúng bản chất; chi phí tuyến tính cho phép chạy lại toàn bộ pipeline trong khoảng một phút. MiniBatchKMeans là phương án dự phòng khi dữ liệu phình to, tuy nhiên với 150--170 nghìn mẫu hiện tại, khoảng cách thời gian giữa hai phiên bản còn nhỏ nên giá trị lựa chọn chưa nổi bật. DBSCAN mạnh về loại nhiễu nhưng mật độ đoạn giao thông rất không đồng đều (nội đô dày, ngoại thành thưa) khiến một $\epsilon$ duy nhất khó thỏa mọi vùng; kết quả thực nghiệm ở Chương 6 xác nhận điều này (Silhouette âm). GMM có ưu thế gán mềm nhưng tốn kém với dữ liệu one-hot nhiều chiều; Agglomerative deterministic nhưng bậc hai về bộ nhớ không khả thi cho mở rộng quy mô. Các dự đoán lý thuyết này sẽ được kiểm chứng bằng số liệu thực nghiệm.
+
+\section{Chuẩn hóa dữ liệu và lựa chọn thuộc tính}
+
+\subsection{Chuẩn hóa}
+Vì khoảng cách Euclid~\eqref{eq:euclid} phụ thuộc đơn vị đo, các thuộc tính có miền giá trị lớn (ví dụ trafficVolume tới hàng nghìn) sẽ ``lấn át'' các thuộc tính có miền nhỏ (ví dụ curvatureIndex cỡ phần trăm) nếu không được chuẩn hóa. Đề tài sử dụng chuẩn hóa z-score (StandardScaler): mỗi thuộc tính được biến đổi theo
+\begin{equation}
+z = \frac{x - \mu}{\sigma},
+\label{eq:zscore}
+\end{equation}
+với $\mu$, $\sigma$ là trung bình và độ lệch chuẩn của thuộc tính trên tập huấn luyện. Sau chuẩn hóa, mọi thuộc tính có trung bình 0 và phương sai 1, đảm bảo các thuật toán dựa trên khoảng cách (K-Means, DBSCAN, GMM) đóng góp công bằng cho mọi chiều dữ liệu.
+
+\subsection{Lựa chọn thuộc tính}
+Không phải mọi thuộc tính đều hữu ích: các thuộc tính dư thừa, nhiễu hoặc không liên quan làm loãng không gian đặc trưng, giảm chất lượng gom cụm và tăng thời gian chạy. Đề tài khảo sát hai phương pháp lựa chọn thuộc tính:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2cm,itemsep=2pt]
+ \item \textbf{Mutual Information}~\cite{peng} --- đo lượng thông tin chia sẻ giữa thuộc tính và nhãn tham chiếu, ưu tiên thuộc tính có MI cao;
+ \item \textbf{Random Forest Importance}~\cite{breiman} --- dựa trên mức độ giảm tạp chất (impurity decrease) trung bình khi thuộc tính được dùng để chia nút trong rừng cây quyết định.
+\end{enumerate}
+Cách tiếp cận top-$k$ được áp dụng: sắp xếp thuộc tính theo điểm số rồi thử nghiệm với các giá trị $k$ khác nhau, chọn tập cho chất lượng gom cụm tốt nhất (trình bày chi tiết ở Chương 6).
+
+\section{Các chỉ số đánh giá chất lượng gom cụm}
+
+\subsection{Chỉ số nội bộ (internal)}
+\textbf{Silhouette Score}~\cite{rousseeuw}: với mỗi điểm $x_i$ trong cụm $C_i$, đặt $a(i)$ là khoảng cách trung bình tới các điểm cùng cụm và $b(i)$ là khoảng cách trung bình nhỏ nhất tới các điểm của cụm lân cận gần nhất; điểm số silhouette của $x_i$ là
+\begin{equation}
+s(i) = \frac{b(i) - a(i)}{\max\{a(i), b(i)\}} \in [-1, 1].
+\label{eq:sil}
+\end{equation}
+Giá trị gần 1 nghĩa là điểm nằm gọn trong cụm của mình và xa các cụm khác; giá trị gần 0 nghĩa là điểm nằm trên biên hai cụm; giá trị âm nghĩa là điểm bị gán nhầm cụm. Chỉ số tổng thể là trung bình $s(i)$ trên toàn bộ dữ liệu, càng cao càng tốt.
+
+\textbf{Davies--Bouldin Index}~\cite{davies}: đo trung bình ``tỉ lệ phân tán trên khoảng cách'' giữa mỗi cặp cụm,
+\begin{equation}
+DBI = \frac{1}{K} \sum_{k=1}^{K} \max_{j \neq k} \frac{S_k + S_j}{M_{kj}},
+\label{eq:dbi}
+\end{equation}
+với $S_k$ là bán kính hiệu dụng (độ phân tán trung bình) của cụm $k$ và $M_{kj}$ là khoảng cách giữa hai tâm cụm. DBI càng \textit{thấp} chứng tỏ các cụm càng tách biệt và gọn gàng.
+
+\textbf{Calinski--Harabasz Index}~\cite{calinski}: tỉ lệ giữa phương sai giữa-cụm và phương sai trong-cụm, được chuẩn hóa bởi bậc tự do:
+\begin{equation}
+CH = \frac{\mathrm{tr}(B_K)}{\mathrm{tr}(W_K)} \cdot \frac{n - K}{K - 1},
+\label{eq:ch}
+\end{equation}
+trong đó $B_K$ là ma trận phân tán giữa-cụm và $W_K$ là ma trận phân tán trong-cụm. CH càng \textit{cao} càng tốt.
+
+\subsection{Chỉ số ngoại bộ (external)}
+Khi có nhãn trạng thái giao thông tham chiếu (do đề tài xây dựng từ ngưỡng LOS và tốc độ tương đối, trình bày ở Chương 6), chất lượng gom cụm có thể đánh giá bằng mức khớp với nhãn tham chiếu: \textbf{ARI} (Adjusted Rand Index)~\cite{hubert} đo mức đồng thuận của mọi cặp điểm giữa hai phân hoạch, hiệu chỉnh cho trường hợp trùng khớp ngẫu nhiên, $\in [-1,1]$; \textbf{NMI} (Normalized Mutual Information) đo lượng thông tin chia sẻ giữa hai phân hoạch đã chuẩn hóa về $[0,1]$; \textbf{FMI} (Fowlkes--Mallows) và \textbf{F-Measure} là đại lượng hình học trung bình của độ chính xác và độ phủ cặp điểm; \textbf{Entropy} đo mức hỗn tạp nhãn tham chiếu trong từng cụm (càng thấp càng tốt).
+
+\section{Nguồn dữ liệu giao thông và thời tiết}
+Đề tài tổng hợp dữ liệu từ bốn nguồn, mỗi nguồn đảm nhận một nhóm thuộc tính và được thu thập định kỳ thành các snapshot. Bảng~\ref{tab:sources} so sánh vai trò và đặc điểm của từng nguồn.
+
+\begin{table}[h!]
+\centering
+\caption{Các nguồn dữ liệu của đề tài.}
+\label{tab:sources}
+\small
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Nguồn} & \textbf{Nhóm dữ liệu} & \textbf{Nội dung khai thác}\\
+\midrule
+TomTom Traffic~\cite{tomtom} & Giao thông động & currentSpeed, freeFlowSpeed, jamFactor, độ tin cậy theo đoạn đường\\
+OpenStreetMap~\cite{osm} & Hạ tầng, hình học & Hình học tuyến, loại đường, số làn, hướng một chiều, giới hạn tốc độ\\
+Mapbox & Định hướng, làn xe & Directions, lane count, map-matching confidence\\
+Open-Meteo~\cite{openmeteo} & Thời tiết & Nhiệt độ, lượng mưa, tốc độ gió theo ngày và tọa độ\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+TomTom Flow Segment Data API trả về trạng thái lưu thông tại một điểm theo hai chỉ số chính: \textit{currentSpeed} (tốc độ hiện tại) và \textit{freeFlowSpeed} (tốc độ khi dòng xe thông thoáng hoàn toàn). Từ hai giá trị này, đề tài định nghĩa chỉ số \textit{congestionIndex} $= \text{currentSpeed} / \text{freeFlowSpeed} \in [0,1]$; lưu ý theo quy ước của đề tài, congestionIndex \textbf{thấp} tương ứng trạng thái \textbf{kẹt} và \textbf{cao} tương ứng \textbf{thoáng}.
+
+\section{Công nghệ phát triển ứng dụng di động}
+Ứng dụng TraffiGo được phát triển bằng \textbf{Java} trên nền Android SDK (minSdk 29, targetSdk 36), kiến trúc theo Activity --- mỗi màn hình là một Activity, logic nghiệp vụ đặt trực tiếp trong activity, sử dụng ViewBinding để truy cập view an toàn kiểu dữ liệu. Các thành phần chính:
+\begin{itemize}[nosep]
+ \item \textbf{Google Maps SDK for Android}: hiển thị bản đồ, vẽ polyline theo màu cụm, marker, camera animation; yêu cầu OpenGL ES 2.0.
+ \item \textbf{Google Routes API}: tính tuyến đường cho phương tiện ô tô/xe máy/đi bộ, hỗ trợ điểm dừng trung gian (intermediates) và trả về polyline mã hóa cần giải mã (encoded polyline).
+ \item \textbf{Google Places API}: gợi ý và tìm địa điểm theo từ khóa với location bias.
+ \item \textbf{Firebase Authentication}: đăng nhập email/mật khẩu và Google Sign-In.
+ \item \textbf{Firebase Realtime Database}: lưu hồ sơ người dùng, địa điểm đã lưu, lịch sử lộ trình, avatar Base64 và sự cố cộng đồng; đồng bộ thời gian thực.
+ \item \textbf{OkHttp}: thư viện HTTP client bất đồng bộ dùng cho mọi lời gọi mạng, kể cả tới server ML.
+ \item \textbf{osmdroid + bản đồ chụp màn hình}: phục vụ chế độ bản đồ ngoại tuyến khi không có kết nối.
+\end{itemize}
+
+\section{Công nghệ xây dựng server Machine Learning}
+Server ML được viết bằng \textbf{Python 3} với các thành phần:
+\begin{itemize}[nosep]
+ \item \textbf{scikit-learn}~\cite{sklearn}: huấn luyện mô hình (Random Forest Regressor, StandardScaler, K-Means, one-hot encoding) và các hàm đánh giá.
+ \item \textbf{joblib}: serialize mô hình đã huấn luyện ra tệp \texttt{.joblib} để nạp lại khi khởi chạy server.
+ \item \textbf{FastAPI}: framework REST API hiện đại dựa trên kiểu chú thích Pydantic --- tự xác thực dữ liệu vào/ra, tự sinh tài liệu Swagger UI, hỗ trợ xử lý bất đồng bộ.
+ \item \textbf{Uvicorn}: ASGI server chạy ứng dụng FastAPI, hỗ trợ nhiều worker cho tải đồng thời.
+\end{itemize}
+Một điểm thiết kế quan trọng: mô hình gom cụm K-Means không được serialize qua joblib mà được \textit{xuất ra JSON} (danh sách thuộc tính, tham số scaler, ma trận tâm cụm, thứ hạng nghiêm trọng). Cách làm này giúp \textbf{cùng một tệp mô hình chạy được ở cả ba môi trường}: pipeline Python, server Python và ứng dụng Android (nơi không thể cài scikit-learn), đảm bảo nhất quán tuyệt đối giữa kết quả phân tích và hiển thị.
+
+Bảng~\ref{tab:beframe} so sánh ba phương án framework back-end đã cân nhắc trên các tiêu chí then chốt của đề tài; FastAPI vượt trội ở khả năng tự sinh tài liệu và tích hợp mô hình cùng tiến trình --- hai yếu tố quyết định cho bản chất ``demo sẵn sàng'' của server ML.
+
+\begin{table}[h!]
+\centering
+\caption{So sánh các phương án framework cho server ML.}
+\label{tab:beframe}
+\small
+\begin{tabularx}{\textwidth}{lXXX}
+\toprule
+\textbf{Tiêu chí} & \textbf{FastAPI (chọn)} & \textbf{Flask} & \textbf{Node.js/Express}\\
+\midrule
+Xác thực schema vào/ra & Tự động (Pydantic) & Thủ công & Thủ công (middleware)\\
+Tài liệu API & Tự sinh Swagger UI & Cần extension & Cần công cụ ngoài\\
+Chạy mô hình sklearn & Cùng tiến trình & Cùng tiến trình & Cần service Python riêng\\
+Xử lý bất đồng bộ & Async/await gốc & Đồng bộ (WSGI) & Event-loop gốc\\
+Hiệu năng (bài toán nhỏ) & Tốt & Đủ dùng & Tốt\\
+Độ phức tạp triển khai & Thấp & Thấp nhất & Trung bình (2 dịch vụ)\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Kiến trúc ứng dụng Android và mô hình thực thi}
+Ứng dụng TraffiGo tổ chức theo mô hình Activity truyền thống (không dùng Fragment/ViewModel): mỗi màn hình là một Activity độc lập, dữ liệu trao đổi qua Intent, logic nghiệp vụ đặt trực tiếp trong activity. Lựa chọn này đánh đổi tính ``hiện đại'' của kiến trúc MVVM lấy lại ba lợi thế thực dụng:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2cm,itemsep=2pt]
+ \item luồng điều hướng đơn giản dễ demo và dễ gỡ lỗi;
+ \item không phải học thêm bộ state management;
+ \item toàn bộ vòng đời tài nguyên (bản đồ, TTS, recognizer, listener Firebase) nằm gọn trong onCreate---onDestroy của từng activity, dễ kiểm soát rò rỉ.
+\end{enumerate}
+
+Ba mô hình thực thi song song quan trọng cần nắm khi đọc mã nguồn:
+\begin{enumerate}[label=(\arabic*),leftmargin=2.2cm,itemsep=2pt]
+ \item \textbf{Luồng chính (main thread)} xử lý mọi thao tác UI và callback bản đồ; Google Maps SDK cấm gọi API bản đồ từ luồng khác (lỗi ``Not on the main thread''), nên mọi truy vấn camera/projection phải được thực hiện ở main thread rồi mới chuyển dữ liệu xuống luồng nền;
+ \item \textbf{Luồng nền (executor)} chạy các tác vụ nặng: nạp 23.417 đoạn hình học, phân tích spatial grid, chụp và nén ảnh bản đồ ngoại tuyến; kết quả được công bố về UI qua \texttt{runOnUiThread} kèm cờ \texttt{isActive} chặn callback muộn sau khi activity đã hủy;
+ \item \textbf{Luồng bất đồng bộ thư viện} (OkHttp callbacks, Firebase listeners) vốn mặc định trả kết quả trên main thread.
+\end{enumerate}
+
+Về quyền truy cập, ứng dụng yêu cầu \texttt{ACCESS\_FINE\_LOCATION} (định vị), \texttt{INTERNET} và \texttt{RECORD\_AUDIO} (trợ lý giọng nói); quyền vị trí được xin runtime theo hai kịch bản (xem bản đồ, dẫn đường) và sau khi cấp phải tiếp tục đúng hành động người dùng đang thực hiện.
+
+\section{Kết chương}
+Chương này đã trình bày nền tảng lý thuyết và công nghệ của đề tài: bốn nhóm thuật toán gom cụm với các công thức cốt lõi và đặc tính riêng, chuẩn hóa z-score và hai phương pháp lựa chọn thuộc tính, bộ chỉ số đánh giá nội bộ lẫn ngoại bộ, bốn nguồn dữ liệu giao thông---thời tiết, cùng stack công nghệ của ứng dụng Android và server FastAPI/scikit-learn. Những kiến thức này là cơ sở trực tiếp cho phần phân tích, thiết kế (Chương 5) và hiện thực, kiểm thử (Chương 6).
+
+% =====================================================================
+\chapter{CÔNG TRÌNH LIÊN QUAN}
+
+\section{Tổng quan các hướng tiếp cận}
+Các nghiên cứu về phân tích và dự đoán giao thông bằng học máy đã phát triển theo nhiều hướng: dự đoán dòng xe chuỗi thời gian (LSTM, Graph Neural Network), phân loại trạng thái bằng mô hình có giám sát, và hướng \textit{gom cụm} --- nhận diện các mẫu hình giao thông điển hình mà không cần nhãn. Trong đó, hướng gom cụm phù hợp với bối cảnh Việt Nam nơi dữ liệu gán nhãn khan hiếm, đồng thời kết quả gom cụm có tính diễn giải cao, dễ chuyển hóa thành sản phẩm trực quan. Ba công trình tiêu biểu dưới đây được khảo sát chi tiết.
+
+\section{Ba công trình nghiên cứu tiêu biểu}
+
+\textbf{Công trình 1 --- A clustering-based traffic flow prediction method with dynamic spatio-temporal correlation analysis} dự báo dòng xe bằng cách gom cụm các đoạn đường theo mẫu hình chuỗi thời gian thành các ``nhóm có tương quan'', rồi dự báo theo nhóm với cơ chế cập nhật tương quan động. Độ chính xác cao hơn phương pháp dự báo từng đoạn độc lập. \textit{Bài học cho đề tài:} gom cụm theo \textit{đoạn đường} (mỗi đoạn là một điểm dữ liệu) phù hợp với dữ liệu snapshot đang có.
+
+\textbf{Công trình 2 --- Clustering of Urban Traffic Patterns by K-Means and Dynamic Time Warping} phân loại mẫu hình giao thông đô thị bằng K-Means trên độ đo DTW, cho ra các cụm phản ánh rõ kiểu ngày giao thông với tính diễn giải tốt. \textit{Bài học cho đề tài:} độ đo tương tự quan trọng không kém thuật toán; với dữ liệu snapshot rời rạc, khoảng cách Euclid trên vector đặc trưng phù hợp hơn DTW.
+
+\textbf{Công trình 3 --- A Spatiotemporal Clustering-Based Route Recommendation System for Travel Time Estimation} gom cụm ``trạng thái mạng lưới'' theo không gian--thời gian để ước lượng thời gian và gợi ý tuyến đường, hoạt động ở mức demo. \textit{Bài học cho đề tài:} kết quả gom cụm chỉ tạo giá trị thực khi được ``đóng gói'' thành dịch vụ cho người dùng cuối --- đây chính là động lực để đề tài phát triển ứng dụng di động và server API thay vì dừng ở dashboard phân tích.
+
+\subsection{Điểm khác biệt giữa các công trình và đề tài}
+Bảng~\ref{tab:gap} chốt lại khoảng cách giữa ba công trình khảo sát và giải pháp của đề tài theo năm khía cạnh thực thi. Điểm khác biệt căn bản nhất: các công trình đều dừng ở mức \textit{mô hình và đánh giá}, trong khi đề tài kéo kết quả nghiên cứu đến tận \textit{sản phẩm người dùng cuối} và \textit{dịch vụ API} --- hai lớp đòi hỏi các quyết định kỹ thuật hoàn toàn khác (nhúng mô hình lên thiết bị, timeout, fallback, thiết kế giao diện) mà tài liệu học thuật hiếm khi đề cập.
+
+\begin{table}[h!]
+\centering
+\caption{Đối chiếu phạm vi thực thi giữa các công trình và đề tài.}
+\label{tab:gap}
+\small
+\begin{tabularx}{\textwidth}{lXXX}
+\toprule
+\textbf{Khía cạnh} & \textbf{Công trình 1--3} & \textbf{Đề tài}\\
+\midrule
+Dữ liệu & Chuỗi lưu lượng tổng hợp/thiết lập công khai & Snapshot đa nguồn thực tế TP.HCM (TomTom + OSM + Mapbox + thời tiết)\\
+Mô hình & Gom cụm chuỗi thời gian (DTW, tương quan động) & Gom cụm vector đặc trưng đa chỉ số + RF dự đoán\\
+Đánh giá & 1--2 chỉ số chính & 5--10 chỉ số nội bộ + ngoại bộ\\
+Ứng dụng & Dashboard phân tích (nếu có) & Ứng dụng di động hoàn chỉnh cho người đi đường\\
+Triển khai & Không có API & REST API ML + suy luận on-device + fallback\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Các hệ thống và công cụ thực tế liên quan}
+\textbf{Google Maps / Waze:} cung cấp điều hướng và trạng thái kẹt xe theo thời gian thực dựa trên đội xe người dùng; trạng thái hiển thị theo ngưỡng màu cố định (đỏ/cam/xanh), không phân nhóm theo đặc thù từng đô thị và không mở API phân tích tùy biến. \textbf{TomTom Go:} tương tự, jamFactor được tính từ dữ liệu đội xe và hiển thị theo thang cố định. \textbf{INRIX, HERE Traffic Analytics:} các nền tảng phân tích giao thông thương mại hướng tới doanh nghiệp và cơ quan quản lý, chi phí bản quyền cao, không phù hợp người dùng cá nhân tại Việt Nam. \textbf{Grab, Be, Xanh SM:} các ứng dụng gọi xe phổ biến tại Việt Nam tập trung vào luồng đặt xe, chỉ hiển thị bản đồ ở mức cơ bản, không cung cấp phân tích trạng thái giao thông theo cụm cho người dùng.
+
+\section{Nhận xét chung và khoảng trống nghiên cứu}
+Bảng~\ref{tab:related} đối chiếu các giải pháp đã khảo sát trên các tiêu chí then chốt của đề tài.
+
+\begin{table}[h!]
+\centering
+\caption{Đối chiếu các giải pháp liên quan với đề tài.}
+\label{tab:related}
+\small
+\begin{tabularx}{\textwidth}{lccccc}
+\toprule
+\textbf{Giải pháp} & \textbf{Gom cụm} & \textbf{Đa nguồn} & \textbf{App người dùng} & \textbf{API ML} & \textbf{Dữ liệu TP.HCM}\\
+\midrule
+Công trình 1 & \checkmark & --- & --- & --- & ---\\
+Công trình 2 & \checkmark & --- & --- & --- & ---\\
+Công trình 3 & \checkmark & --- & \checkmark (demo) & --- & ---\\
+Google Maps / Waze & --- & \checkmark & \checkmark & --- & \checkmark (ẩn)\\
+INRIX / HERE & \checkmark & \checkmark & \checkmark & \checkmark & ---\\
+Grab / Be / Xanh SM & --- & \checkmark & \checkmark & --- & \checkmark (mức cơ bản)\\
+\midrule
+\textbf{Đề tài} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Từ bảng đối chiếu, khoảng trống nghiên cứu được nhận diện rõ: các công trình học thuật dừng ở mức mô hình và dashboard, các sản phẩm thương mại đóng dữ liệu và mô hình; chưa có giải pháp nào kết hợp \textit{cả ba} yếu tố:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2cm,itemsep=2pt]
+ \item phân tích gom cụm có đánh giá đa chỉ số trên dữ liệu đa nguồn thực tế của TP.HCM;
+ \item ứng dụng di động đầy đủ tính năng cho người dùng cá nhân;
+ \item server ML mở với bộ API dự đoán theo đoạn đường.
+\end{enumerate}
+Đây chính là vị trí mà đề tài đặt mình vào.
+
+\section{Kết chương}
+Chương này đã khảo sát ba công trình nghiên cứu tiêu biểu về gom cụm giao thông cùng các hệ thống thực tế, rút ra các bài học về lựa chọn độ đo, cấu trúc dữ liệu và nhu cầu ``đóng gói'' kết quả thành sản phẩm; đồng thời chỉ ra khoảng trống mà đề tài lấp đầy. Các kiến thức này trực tiếp định hướng thiết kế hệ thống ở chương tiếp theo.
+
+% =====================================================================
+\chapter{HỆ THỐNG ĐỀ XUẤT}
+
+\section{Mô tả hệ thống}
+Hệ thống đề xuất của đề tài gồm bốn thành phần liên kết với nhau theo luồng dữ liệu ``từ nguồn tới người dùng'':
+\begin{enumerate}[label=\textbf{(\arabic*)},leftmargin=2cm,itemsep=2pt]
+ \item \textbf{Pipeline dữ liệu}: thu thập định kỳ snapshot giao thông từ TomTom Flow API cho các đoạn đường do OpenStreetMap định nghĩa, kết hợp đặc trưng hạ tầng (OSM/Mapbox) và thời tiết (Open-Meteo), làm sạch và tổng hợp thành tập dữ liệu chuẩn theo từng đoạn --- thời điểm.
+ \item \textbf{Pipeline học máy}: tiền xử lý, chuẩn hóa, lựa chọn thuộc tính, gom cụm và đánh giá đa chỉ số; mô hình tốt nhất (K-Means $k=6$) được xuất sang JSON để nhúng lên di động; đồng thời huấn luyện mô hình Random Forest dự đoán tốc độ lưu thông phục vụ server ML.
+ \item \textbf{Ứng dụng di động TraffiGo (Android)}: bản đồ giao thông sáu mức màu theo cụm, chỉ đường né kẹt với chấm điểm sức khỏe tuyến, tin tức giao thông, địa điểm lân cận, gọi xe nhanh, trợ lý giọng nói và bản đồ ngoại tuyến.
+ \item \textbf{Server Machine Learning (FastAPI)}: cung cấp bộ REST API dự đoán tốc độ, mức kẹt, rủi ro sự cố, gợi ý và so sánh tuyến đường, tổng hợp trạng thái giao thông; tích hợp hai chiều với ứng dụng theo kiến trúc client--server có fallback.
+\end{enumerate}
+Hệ thống phục vụ hai nhóm người dùng chính: \textit{người tham gia giao thông cá nhân} --- người dùng cuối của ứng dụng TraffiGo; và \textit{nhà phát triển/quản trị} --- người vận hành pipeline, huấn luyện lại mô hình và tiêu thụ bộ API ML.
+
+Luồng xử lý dữ liệu tổng quát của hệ thống được chuẩn hóa thành sáu bước ETL lặp lại được, mỗi bước có đầu vào --- đầu ra xác định và có thể chạy độc lập:
+\begin{enumerate}[label=\textbf{Bước \arabic*.},leftmargin=2.2cm,itemsep=1pt]
+ \item \textbf{Thu thập}: chụp snapshot TomTom Flow cho toàn bộ đoạn trong \texttt{geometry.csv} tại khung giờ định sẵn, đặt tên tệp theo mốc thời gian để truy vết.
+ \item \textbf{Tổng hợp hạ tầng}: nối đặc trưng OSM (loại đường, làn, một chiều, giới hạn tốc độ) và Mapbox (làn, map-matching confidence) vào từng dòng giao thông.
+ \item \textbf{Làm sạch}: khử trùng lặp theo \texttt{segmentId}, chuẩn hóa kiểu số, giới hạn miền giá trị hợp lý, xử lý giá trị thiếu theo từng nhóm cột.
+ \item \textbf{Làm giàu ngữ cảnh}: suy \texttt{hourOfDay}, \texttt{dayOfWeek}, \texttt{dayType} từ \texttt{timeStamp}; join thời tiết ngày từ Open-Meteo.
+ \item \textbf{Chuẩn hóa và lựa chọn thuộc tính}: z-score; xếp hạng thuộc tính bằng MI và RF Importance; chốt tập top-$k$.
+ \item \textbf{Xuất bản}: đóng gói tập huấn luyện CSV + \texttt{cluster\_model.json} + hình ảnh phân tích phục vụ báo cáo.
+\end{enumerate}
+
+\section{Yêu cầu}
+
+\subsection{Yêu cầu chức năng}
+Bảng~\ref{tab:fr} liệt kê các yêu cầu chức năng (FR) của hệ thống, được đánh giá lại ở chương kiểm thử (Chương 6).
+
+\begin{table}[h!]
+\centering
+\caption{Yêu cầu chức năng của hệ thống.}
+\label{tab:fr}
+\small
+\begin{tabularx}{\textwidth}{clXc}
+\toprule
+\textbf{Mã} & \textbf{Nhóm} & \textbf{Nội dung yêu cầu} & \textbf{Ưu tiên}\\
+\midrule
+FR01 & Tài khoản & Đăng nhập email/mật khẩu và Google Sign-In bằng Firebase Auth & Cao\\
+FR02 & Bản đồ & Hiển thị trạng thái giao thông thời gian thực trên bản đồ theo 6 cụm màu & Cao\\
+FR03 & Bản đồ & Đoạn không có dữ liệu live được tô xám ``thiếu dữ liệu'', không suy đoán & Cao\\
+FR04 & Bản đồ & Bấm vào đoạn đường hiện chi tiết: tốc độ live, trạng thái, dự báo ML & Cao\\
+FR05 & Chỉ đường & Tìm đường ô tô/xe máy/đi bộ, hỗ trợ đa điểm dừng & Cao\\
+FR06 & Chỉ đường & Né khu vực kẹt: trọng số thời gian nhân hệ số phạt theo congestionIndex & Cao\\
+FR07 & Chỉ đường & Chấm điểm sức khỏe tuyến A--F, cảnh báo tắc, ước tính nhiên liệu & Trung bình\\
+FR08 & ML & Gọi server dự báo tốc độ/mức kẹt/rủi ro sự cố cho từng đoạn & Cao\\
+FR09 & ML & Nhận đề xuất tuyến từ server và tự chuyển khi server chọn tuyến khác & Trung bình\\
+FR10 & ML & Fallback về logic on-device khi server offline, không gián đoạn ứng dụng & Cao\\
+FR11 & Tin tức & Tổng hợp tin giao thông từ 5 báo điện tử, lọc danh mục, nghe bài viết & Trung bình\\
+FR12 & Địa điểm & Tìm địa điểm lân cận theo danh mục; lưu nhà/công ty/yêu thích/đỗ xe & Trung bình\\
+FR13 & Tiện ích & Gọi xe nhanh Grab/Be/Xanh SM; trợ lý giọng nói; bản đồ ngoại tuyến & Trung bình\\
+FR14 & Đa ngôn ngữ & Chuyển đổi tiếng Việt/tiếng Anh áp dụng toàn ứng dụng & Thấp\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Yêu cầu phi chức năng}
+\begin{table}[h!]
+\centering
+\caption{Yêu cầu phi chức năng của hệ thống.}
+\label{tab:nfr}
+\small
+\begin{tabularx}{\textwidth}{clX}
+\toprule
+\textbf{Mã} & \textbf{Nhóm} & \textbf{Nội dung yêu cầu}\\
+\midrule
+NFR01 & Hiệu năng & Suy luận gom cụm on-device; server ML phản hồi $\le$ 1 giây mỗi request\\
+NFR02 & Hiệu năng & Nạp 23.417 đoạn hình học không khựng UI (xử lý nền + spatial grid)\\
+NFR03 & Khả dụng & App hoạt động đầy đủ khi không có server ML và giảm chức năng khi offline\\
+NFR04 & Tiết kiệm & Giới hạn gọi TomTom theo khung nhìn (zoom $\ge$ 14, tối đa 150 đoạn/lần) để kéo dài quota\\
+NFR05 & Bảo mật & Khóa API nhạy cảm lưu ngoài git (local.properties); Realtime Database yêu cầu xác thực\\
+NFR06 & Bảo trì & Mô hình chuẩn JSON dùng chung pipeline/server/app; tài liệu API tự sinh (Swagger UI)\\
+NFR07 & UX & Giao diện thống nhất một hệ thiết kế (màu chủ đạo, bo góc, nút pill) trên mọi màn hình\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Yêu cầu dữ liệu}
+Tập dữ liệu huấn luyện gồm 171 snapshot giao thông thu thập trong khoảng 09/03--15/04/2026, tổng cộng khoảng 170.000 dòng trên 917 đoạn đường sau khử trùng lặp; mỗi dòng là một đoạn --- thời điểm với 40 thuộc tính chia thành năm nhóm:
+\begin{itemize}[nosep]
+ \item \textbf{Định danh và không gian}: segmentId, name\_vn, tọa độ đầu--cuối đoạn.
+ \item \textbf{Hạ tầng và hình học}: laneCount\_aggregated, speedLimit, roadType, surface, oneway, curvatureIndex, lengthKm, intersectionCount, routeSlopePercent, startElevation/endElevation.
+ \item \textbf{Giao thông động}: currentSpeed, freeFlowSpeed, jamFactor, incidentFlag, congestionIndex, trafficVolume, occupancy, crossTime, speedLimitRatio, relativeCongestionIndex.
+ \item \textbf{Thời gian và bối cảnh}: timeStamp (định dạng yyMMddHHmm), dayOfWeek, hourOfDay, dayType (Weekday/Weekend).
+ \item \textbf{Điều hướng và độ tin cậy}: route\_distance\_m, route\_duration\_sec, route\_weight, map\_match\_confidence.
+\end{itemize}
+Dữ liệu thời tiết ngày (nhiệt độ cao nhất, lượng mưa, tốc độ gió) cho đúng khoảng thời gian trên được lấy từ Open-Meteo Archive và join theo ngày. Với dữ liệu thời gian thực, hệ thống tiêu thụ TomTom Flow API theo tọa độ, vị trí GPS của người dùng và sự cố cộng đồng lưu trên Firebase Realtime Database.
+
+\section{Kết chương}
+Chương này mô tả bốn thành phần của hệ thống, chốt danh mục 14 yêu cầu chức năng, 7 yêu cầu phi chức năng và cấu trúc tập dữ liệu 40 thuộc tính. Các yêu cầu này là đầu vào trực tiếp cho phân tích và thiết kế ở chương sau, đồng thời là căn cứ kiểm nghiệm ở chương kiểm thử.
+

@@ -1,0 +1,16 @@
+# Android build
+TraffiGo/build/
+TraffiGo/.gradle/
+TraffiGo/local.properties
+TraffiGo/.idea/
+TraffiGo/app/build/
+TraffiGo/captures/
+
+# Python
+server/__pycache__/
+server/*.pyc
+server/.venv/
+
+# Hệ thống
+.DS_Store
+Thumbs.db

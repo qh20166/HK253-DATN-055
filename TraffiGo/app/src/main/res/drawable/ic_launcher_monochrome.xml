@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Mũi tên đặc, một tông màu (hệ thống tự tô màu themed icon), cùng hình + tỉ lệ với foreground -->
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="45">
+        <path
+            android:pathData="M54,27 L33.8,76.4 L35.6,78.3 L54,70.2 L72.4,78.3 L74.3,76.4 Z"
+            android:fillColor="#000000" />
+    </group>
+</vector>

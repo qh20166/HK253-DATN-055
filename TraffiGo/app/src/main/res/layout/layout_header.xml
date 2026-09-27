@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_header_bar"
+    android:elevation="10dp"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:paddingHorizontal="12dp">
+
+        <!-- Back button -->
+        <FrameLayout
+            android:id="@+id/btnBackContainer"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/bg_circle_header_icon">
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="11dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_back"
+                app:tint="@color/on_surface" />
+        </FrameLayout>
+
+        <!-- Voice assistant mic (wired app-wide in TraffiGoApp) -->
+        <FrameLayout
+            android:id="@+id/btnVoiceMicContainer"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/bg_circle_header_icon">
+            <ImageButton
+                android:id="@+id/btnVoiceMic"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="11dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_mic"
+                app:tint="@color/on_surface"
+                android:contentDescription="@string/voice_mic_cd" />
+        </FrameLayout>
+
+        <!-- Share button (invisible by default — preserves title centering) -->
+        <FrameLayout
+            android:id="@+id/btnShareContainer"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/btnVoiceMicContainer"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_circle_header_icon"
+            android:visibility="invisible">
+            <ImageButton
+                android:id="@+id/btnShare"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="11dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_share"
+                app:tint="@color/on_surface"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <!-- Title — centered between buttons -->
+        <TextView
+            android:id="@+id/tvPageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Title"
+            android:textColor="@color/on_surface"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:fontFamily="sans-serif-medium" />
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,290 @@
+% =====================================================================
+% BÁO CÁO ĐỒ ÁN TỐT NGHIỆP — TRẦN QUANG HUY 2211288
+% HK253-DATN-055 — Xây dựng giải pháp gom cụm tình trạng giao thông ở TP.HCM
+% Biên dịch: tectonic baocao.tex  (XeTeX + fontspec + TikZ)
+% =====================================================================
+\documentclass[12pt,a4paper]{report}
+
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3.5cm,right=2.5cm]{geometry}
+\usepackage{fontspec}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{adjustbox}
+\usepackage{fancyhdr}
+\usepackage{tocloft}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit,calc,shadows.blur}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[hidelinks,unicode]{hyperref}
+
+\setmainfont{Times New Roman}
+\onehalfspacing
+
+% Màu chủ đạo cho hình vẽ — đồng bộ thương hiệu ứng dụng
+\definecolor{brand}{HTML}{5C4FE0}
+\definecolor{brandlight}{HTML}{EFECFD}
+\definecolor{screenbg}{HTML}{F0ECFA}
+\definecolor{appink}{HTML}{211D4E}
+\definecolor{greenc}{HTML}{2E7D32}
+\definecolor{orangec}{HTML}{E65100}
+\definecolor{redc}{HTML}{C62828}
+
+% ----- Định dạng đề mục kiểu báo cáo ĐATN -----
+\titleformat{\chapter}[display]
+  {\centering\bfseries\fontsize{16pt}{20pt}\selectfont}
+  {\MakeUppercase{\chaptertitlename\ \thechapter}}{10pt}{\MakeUppercase}
+\titleformat{\section}{\bfseries\fontsize{14pt}{18pt}\selectfont}{\thesection.}{6pt}{}
+\titleformat{\subsection}{\bfseries\fontsize{13pt}{17pt}\selectfont}{\thesubsection.}{6pt}{}
+\titlespacing{\chapter}{0pt}{-20pt}{18pt}
+
+\renewcommand{\contentsname}{MỤC LỤC}
+\renewcommand{\listfigurename}{DANH MỤC HÌNH}
+\renewcommand{\listtablename}{DANH MỤC BẢNG}
+\renewcommand{\chaptername}{Chương}
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
+\renewcommand{\appendixname}{Phụ lục}
+\renewcommand{\bibname}{TÀI LIỆU THAM KHẢO}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsecpagefont}{\bfseries}
+\emergencystretch=3em
+
+\captionsetup{font=small,labelfont=bf}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\itshape Đồ án tốt nghiệp (CO4337)}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyhead[L]{\small\itshape Đồ án tốt nghiệp (CO4337)}%
+  \fancyhead[R]{\small\thepage}%
+  \renewcommand{\headrulewidth}{0.4pt}%
+}
+\setlength{\headheight}{14pt}
+\addtolength{\topmargin}{-2pt}
+
+\newcommand{\tentruong}{TRƯỜNG ĐẠI HỌC BÁCH KHOA}
+\newcommand{\tendetai}{XÂY DỰNG GIẢI PHÁP GOM CỤM TÌNH TRẠNG GIAO THÔNG Ở TP.HCM}
+
+\begin{document}
+
+% =====================================================================
+% TRANG BÌA
+% =====================================================================
+\begin{titlepage}
+\begin{center}
+{\bfseries\fontsize{14pt}{18pt}\selectfont ĐẠI HỌC QUỐC GIA TP.HCM\\[2pt]
+\MakeUppercase{\tentruong}\\[2pt]
+KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH\\[2pt]
+BỘ MÔN HỆ THỐNG THÔNG TIN}\\[3.6cm]
+
+{\bfseries\fontsize{18pt}{24pt}\selectfont ĐỒ ÁN TỐT NGHIỆP}\\[1.2cm]
+{\bfseries\fontsize{17pt}{24pt}\selectfont \tendetai}\\[2.4cm]
+
+\begin{tabular}{ll}
+{\bfseries Ngành:} & Khoa học Máy tính\\[4pt]
+{\bfseries Mã đồ án:} & HK253-DATN-055\\[4pt]
+{\bfseries GVHD:} & PGS.TS. Trần Minh Quang\\[2pt]
+ & ThS. Bùi Tiến Đức\\[4pt]
+{\bfseries GVPB:} & PGS.TS. Võ Thị Ngọc Châu\\[4pt]
+{\bfseries SVTH:} & Trần Quang Huy --- 2211288\\
+\end{tabular}\\[2.4cm]
+
+{\bfseries\fontsize{14pt}{18pt}\selectfont TP. HỒ CHÍ MINH, THÁNG 09 NĂM 2026}
+\end{center}
+\end{titlepage}
+
+% =====================================================================
+\chapter*{LỜI CẢM ƠN}
+\addcontentsline{toc}{chapter}{LỜI CẢM ƠN}
+Trước tiên, em xin gửi lời cảm ơn chân thành tới PGS.TS.~Trần Minh Quang và ThS.~Bùi Tiến Đức --- những người đã tận tình hướng dẫn, định hướng và góp ý cho em trong suốt quá trình thực hiện đồ án. Nhờ sự chỉ bảo của các thầy, em không chỉ hoàn thành được các mục tiêu nghiên cứu mà còn học được cách tiếp cận một bài toán khoa học một cách có hệ thống: từ khảo sát công trình liên quan, xây dựng và kiểm chứng giả thuyết, cho đến hiện thực và đánh giá sản phẩm.
+
+Em cũng xin gửi lời cảm ơn Khoa Khoa học và Kỹ thuật Máy tính, Trường Đại học Bách Khoa --- ĐHQG TP.HCM đã tạo môi trường học tập và nghiên cứu; quý thầy cô trong bộ môn Hệ thống Thông tin đã truyền đạt những kiến thức nền tảng mà em vận dụng xuyên suốt đồ án. Cuối cùng, em xin cảm ơn gia đình và bạn bè đã luôn đồng hành, động viên em trong suốt quá trình học tập và thực hiện đồ án tốt nghiệp.
+
+Mặc dù đã nỗ lực hết sức, đồ án không thể tránh khỏi những thiếu sót. Em rất mong nhận được sự góp ý của quý thầy cô để báo cáo được hoàn thiện hơn.
+
+\begin{flushright}
+TP.HCM, tháng 09 năm 2026\\
+\textbf{Sinh viên thực hiện}\\[24pt]
+Trần Quang Huy
+\end{flushright}
+
+% =====================================================================
+\chapter*{TÓM TẮT BÁO CÁO}
+\addcontentsline{toc}{chapter}{TÓM TẮT BÁO CÁO}
+
+Ùn tắc giao thông là một trong những vấn đề cấp bách nhất của Thành phố Hồ Chí Minh. Đề tài \textit{``Xây dựng giải pháp gom cụm tình trạng giao thông ở TP.HCM''} hướng tới việc nhận diện tự động các trạng thái giao thông điển hình của thành phố bằng kỹ thuật gom cụm dữ liệu, đồng thời đưa kết quả phân tích tới tay người tham gia giao thông thông qua một hệ thống ứng dụng hoàn chỉnh. Hệ thống gồm bốn thành phần:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2cm,itemsep=2pt]
+    \item pipeline thu thập và xử lý dữ liệu giao thông đa nguồn (TomTom Traffic API, OpenStreetMap, Mapbox, Open-Meteo);
+    \item pipeline học máy so sánh năm thuật toán gom cụm (K-Means, MiniBatchKMeans, DBSCAN, GMM, Agglomerative Clustering) bằng bộ chỉ số Silhouette, Davies--Bouldin, Calinski--Harabasz, ARI, NMI;
+    \item ứng dụng di động \textbf{TraffiGo} trên nền Android cho người dùng đi đường;
+    \item \textbf{server Machine Learning} (FastAPI) cung cấp API dự đoán tốc độ lưu thông, mức độ kẹt xe, rủi ro sự cố và gợi ý tuyến đường theo từng đoạn đường.
+\end{enumerate}
+
+Kết quả thực nghiệm cho thấy mô hình K-Means với $k=6$ trên nhánh Feature Selection đạt chất lượng gom cụm tốt nhất (Silhouette $0{,}4183$; Davies--Bouldin $0{,}8063$; Calinski--Harabasz $147574{,}6$) và cho phép diễn giải sáu trạng thái giao thông có ý nghĩa thực tiễn, từ ``tắc tuyệt đối/bất thường'' đến ``thông thoáng hoàn toàn''. Mô hình này được xuất ở dạng JSON và nhúng trực tiếp vào ứng dụng di động, giúp tô màu sáu mức trạng thái giao thông trên bản đồ trong thời gian thực mà không phụ thuộc máy chủ. Song song, mô hình Random Forest dự đoán tốc độ lưu thông được huấn luyện trên khoảng $149.000$ mẫu dữ liệu thu thập trong giai đoạn 09/03--15/04/2026, đạt MAE $2{,}19$ km/h (so với baseline $8{,}25$ km/h) và hệ số xác định $R^2 = 0{,}919$; mô hình được triển khai qua bộ REST API \texttt{/api/ml/*} và tích hợp hai chiều với ứng dụng: dự báo chi tiết theo đoạn đường và gợi ý tuyến đường tối ưu. Server chính thức hiện chạy trên Render Cloud tại \url{https://traffigo-server.onrender.com}; ứng dụng Android kết nối tới dịch vụ này và hiển thị chip xanh ``Server ML: đang hoạt động'' khi kiểm tra \texttt{/health} thành công. Ứng dụng đã vượt qua toàn bộ ca kiểm thử đơn vị và ca kiểm thử chức năng trên thiết bị giả lập.
+
+\textbf{Từ khóa:} gom cụm dữ liệu, học máy không giám sát, K-Means, dự đoán giao thông, ứng dụng Android, FastAPI.
+
+\chapter*{ABSTRACT}
+\addcontentsline{toc}{chapter}{ABSTRACT}
+
+Traffic congestion is one of the most pressing problems in Ho Chi Minh City. This project, \textit{``Building a traffic condition clustering solution for Ho Chi Minh City''}, aims to automatically identify the typical traffic states of the city using data clustering techniques, and to deliver the analysis results to road users through a complete application system. The system comprises four components:
+\begin{enumerate}[label=(\roman*),leftmargin=2.2cm,itemsep=2pt]
+    \item a multi-source traffic data collection and processing pipeline (TomTom Traffic API, OpenStreetMap, Mapbox, Open-Meteo);
+    \item a machine learning pipeline that compares five clustering algorithms (K-Means, MiniBatchKMeans, DBSCAN, GMM, Agglomerative Clustering) using Silhouette, Davies--Bouldin, Calinski--Harabasz, ARI and NMI metrics;
+    \item \textbf{TraffiGo}, an Android application for road users;
+    \item a \textbf{Machine Learning server} (FastAPI) exposing APIs that predict traffic speed, congestion level and incident risk per road segment.
+\end{enumerate}
+
+Experiments show that K-Means with $k=6$ on the Feature Selection branch achieves the best clustering quality (Silhouette $0.4183$; Davies--Bouldin $0.8063$; Calinski--Harabasz $147574.6$) and yields six practically interpretable traffic states, from ``extreme congestion/anomaly'' to ``free flow''. This model is exported as JSON and embedded directly in the mobile application, coloring six real-time traffic states on the map without depending on a server. In parallel, a Random Forest speed-prediction model trained on approximately $149{,}000$ samples collected between 2026-03-09 and 2026-04-15 achieves MAE $2.19$ km/h (versus an $8.25$ km/h baseline) with $R^2 = 0.919$; the model is deployed through REST APIs (\texttt{/api/ml/*}) and integrated with the application for per-segment forecasting and route recommendation. The production server currently runs on Render Cloud at \url{https://traffigo-server.onrender.com}; the Android application connects to this service and shows a green ``Server ML: online'' status chip when the \texttt{/health} check succeeds. The application passed all unit tests and functional test cases on an Android emulator.
+
+\textbf{Keywords:} data clustering, unsupervised learning, K-Means, traffic prediction, Android application, FastAPI.
+
+% =====================================================================
+\tableofcontents
+\clearpage
+\addcontentsline{toc}{chapter}{DANH MỤC HÌNH}
+\listoffigures
+\clearpage
+\addcontentsline{toc}{chapter}{DANH MỤC BẢNG}
+\listoftables
+
+% =====================================================================
+\chapter*{DANH MỤC TỪ VIẾT TẮT}
+\addcontentsline{toc}{chapter}{DANH MỤC TỪ VIẾT TẮT}
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Viết tắt} & \textbf{Ý nghĩa}\\
+\midrule
+API & Application Programming Interface --- giao diện lập trình ứng dụng\\
+ARI & Adjusted Rand Index --- chỉ số Rand hiệu chỉnh\\
+BFS & Breadth-First Search --- tìm kiếm theo chiều rộng\\
+CH & Calinski--Harabasz Index\\
+CSDL & Cơ sở dữ liệu\\
+DBI & Davies--Bouldin Index\\
+DTW & Dynamic Time Warping --- xoắn thời gian động\\
+EM & Expectation--Maximization --- thuật toán kỳ vọng--cực đại hóa\\
+FMI & Fowlkes--Mallows Index\\
+GMM & Gaussian Mixture Model --- mô hình hỗn hợp Gaussian\\
+GPS & Global Positioning System --- hệ định vị toàn cầu\\
+HTTP & HyperText Transfer Protocol\\
+ITS & Intelligent Transportation Systems --- hệ thống giao thông thông minh\\
+JWT & JSON Web Token\\
+LOS & Level of Service --- mức độ phục vụ giao thông\\
+ML & Machine Learning --- học máy\\
+NMI & Normalized Mutual Information\\
+OSM & OpenStreetMap --- bản đồ mở mã nguồn mở\\
+POI & Point of Interest --- điểm quan tâm trên bản đồ\\
+RF & Random Forest --- rừng ngẫu nhiên\\
+RMSE & Root Mean Square Error --- sai số bình phương trung bình gốc\\
+REST & Representational State Transfer\\
+TSP & Transportation System Plan\\
+TTS & Text-to-Speech --- chuyển văn bản thành giọng nói\\
+UC & Use Case --- ca sử dụng\\
+UI & User Interface --- giao diện người dùng\\
+UX & User Experience --- trải nghiệm người dùng\\
+V2X & Vehicle-to-Everything\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\input{chuong1_4}
+\input{chuong5_8}
+
+% =====================================================================
+\chapter*{KẾ HOẠCH THỰC HIỆN}
+\addcontentsline{toc}{chapter}{KẾ HOẠCH THỰC HIỆN ĐỒ ÁN TỐT NGHIỆP}
+
+Đồ án tốt nghiệp được thực hiện trong 15 tuần (khoảng tháng 06 -- tháng 09 năm 2026) theo kế hoạch Bảng~\ref{tab:plan}. Trong đó, giai đoạn đầu (tuần 1--9) tập trung vào nghiên cứu, dữ liệu và mô hình học máy; giai đoạn sau (tuần 10--15) tập trung vào hiện thực sản phẩm, tích hợp hệ thống, kiểm thử và viết báo cáo. Kế hoạch được điều chỉnh linh hoạt theo tiến độ thực tế và ý kiến hướng dẫn của GVHD ở từng buổi họp nhóm.
+
+\begin{table}[h!]
+\centering
+\caption{Kế hoạch thực hiện đồ án tốt nghiệp (15 tuần).}
+\label{tab:plan}
+\small
+\begin{tabularx}{\textwidth}{clX}
+\toprule
+\textbf{Tuần} & \textbf{Nhiệm vụ} & \textbf{Chi tiết}\\
+\midrule
+1--2 & Khảo sát & Nghiên cứu công trình liên quan về gom cụm giao thông, khảo sát các nguồn dữ liệu và công nghệ nền tảng\\
+3--4 & Thu thập dữ liệu & Xây bộ công cụ thu snapshot giao thông TomTom, hạ tầng OSM/Mapbox, thời tiết Open-Meteo cho TP.HCM\\
+5--6 & Tiền xử lý & Làm sạch, khử trùng lặp, xử lý giá trị thiếu, phân tích phân bố và tương quan thuộc tính\\
+7 & Lựa chọn thuộc tính & Mutual Information, Random Forest Importance; đánh giá top-k và chốt tập thuộc tính\\
+8--9 & Gom cụm & K-Means, MiniBatchKMeans, DBSCAN, GMM, Agglomerative; tìm tham số; đánh giá đa chỉ số; diễn giải cụm\\
+10 & Ứng dụng mobile & Nhúng mô hình gom cụm, tô màu bản đồ, định tuyến né kẹt, hoàn thiện các tính năng cốt lõi\\
+11--12 & Server ML & Huấn luyện mô hình dự đoán tốc độ, xây dựng FastAPI, tích hợp hai chiều app $\leftrightarrow$ server\\
+13 & Hoàn thiện app & Sửa lỗi, đồng bộ giao diện theo bộ thiết kế chung, tối ưu hiệu năng và dữ liệu live\\
+14 & Kiểm thử & Unit test + kiểm thử chức năng trên trình giả lập, khắc phục lỗi phát hiện được\\
+15 & Báo cáo & Viết báo cáo theo biểu mẫu, chuẩn bị slide và demo bảo vệ trước hội đồng\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% =====================================================================
+\begin{thebibliography}{17}
+\addcontentsline{toc}{chapter}{TÀI LIỆU THAM KHẢO}
+\bibitem{han} J. Han, M. Kamber, and J. Pei, \textit{Data Mining: Concepts and Techniques}, 3rd ed. Morgan Kaufmann Publishers, 2011.
+\bibitem{macqueen} J. MacQueen, ``Some methods for classification and analysis of multivariate observations,'' in \textit{Proc. 5th Berkeley Symp. Math. Statist. and Prob.}, vol.~1, 1967, pp.~281--297.
+\bibitem{lloyd} S. Lloyd, ``Least squares quantization in PCM,'' \textit{IEEE Trans. Inf. Theory}, vol.~28, no.~2, pp.~129--137, 1982.
+\bibitem{ester} M. Ester, H.-P. Kriegel, J. Sander, and X. Xu, ``A density-based algorithm for discovering clusters in large spatial databases with noise,'' in \textit{Proc. 2nd Int. Conf. Knowledge Discovery and Data Mining (KDD)}, 1996, pp.~226--231.
+\bibitem{reynolds} D. Reynolds, ``Gaussian Mixture Models,'' in \textit{Encyclopedia of Biometrics}, vol.~741, 2009, pp.~659--663.
+\bibitem{peng} H. Peng, F. Long, and C. Ding, ``Feature selection based on mutual information: Criteria of max-dependency, max-relevance, and min-redundancy,'' \textit{IEEE Trans. Pattern Anal. Mach. Intell.}, vol.~27, no.~8, pp.~1226--1238, 2005.
+\bibitem{breiman} L. Breiman, ``Random Forests,'' \textit{Machine Learning}, vol.~45, no.~1, pp.~5--32, 2001.
+\bibitem{rousseeuw} P. J. Rousseeuw, ``Silhouettes: A graphical aid to the interpretation and validation of cluster analysis,'' \textit{J. Comput. Appl. Math.}, vol.~20, pp.~53--65, 1987.
+\bibitem{davies} D. L. Davies and D. W. Bouldin, ``A cluster separation measure,'' \textit{IEEE Trans. Pattern Anal. Mach. Intell.}, vol.~PAMI-1, no.~2, pp.~224--227, 1979.
+\bibitem{calinski} T. Caliński and J. Harabasz, ``A dendrite method for cluster analysis,'' \textit{Communications in Statistics}, vol.~3, no.~1, pp.~1--27, 1974.
+\bibitem{hubert} L. Hubert and P. Arabie, ``Comparing partitions,'' \textit{J. Classification}, vol.~2, no.~1, pp.~193--218, 1985.
+\bibitem{tomtom} TomTom, ``Traffic Flow Segment Data API,'' 2026. [Online]. Available: \url{https://developer.tomtom.com}
+\bibitem{osm} OpenStreetMap Foundation, ``OpenStreetMap and Overpass API,'' 2026. [Online]. Available: \url{https://www.openstreetmap.org}
+\bibitem{openmeteo} Open-Meteo, ``Historical Weather API,'' 2026. [Online]. Available: \url{https://open-meteo.com}
+\bibitem{google} Google, ``Maps SDK for Android, Routes API and Places API documentation,'' 2026. [Online]. Available: \url{https://developers.google.com}
+\bibitem{sklearn} F. Pedregosa \textit{et al.}, ``Scikit-learn: Machine learning in Python,'' \textit{J. Mach. Learn. Res.}, vol.~12, pp.~2825--2830, 2011.
+\bibitem{tilkov} S. Tilkov and S. Vinoski, ``Node.js: Using JavaScript to build high-performance network programs,'' \textit{IEEE Internet Comput.}, vol.~14, no.~6, pp.~80--83, 2010.
+\end{thebibliography}
+
+% =====================================================================
+\appendix
+\chapter{HƯỚNG DẪN CHẠY SERVER ML}
+Server ML được đặt tại thư mục \texttt{E:\textbackslash Android\textbackslash TraffiGo\textbackslash server}, gồm ba thành phần: \texttt{train\_model.py} (huấn luyện và xuất mô hình), \texttt{app.py} (REST API) và thư mục \texttt{models/} (chứa các tệp mô hình). Các bước cài đặt và khởi chạy:
+\begin{verbatim}
+pip install -r requirements.txt
+python train_model.py          # huấn luyện lại mô hình (chạy 1 lần)
+uvicorn app:app --host 0.0.0.0 --port 8000
+\end{verbatim}
+Sau khi khởi chạy, giao diện tài liệu API (Swagger UI) tự sinh tại \url{http://localhost:8000/docs}. Ứng dụng Android mặc định gọi \url{http://10.0.2.2:8000} (địa chỉ loopback của máy phát triển nhìn từ trình giả lập chuẩn), sau đó tự thử \url{http://127.0.0.1:8000} (phù hợp khi dùng \texttt{adb reverse tcp:8000 tcp:8000} hoặc trình giả lập MuMu/LDPlayer); với thiết bị thật, người dùng đặt địa chỉ IP LAN của máy chủ trong SharedPreferences theo khóa \texttt{ml\_server\_url} (nhóm prefs \texttt{TraffiGoPrefs}). Khi máy chủ không khả dụng, mọi lời gọi ML tự fallback về logic tính toán trên thiết bị.
+
+\section*{Máy chủ triển khai chính thức}
+Môi trường production của TraffiGo ML Server được triển khai trên Render Cloud tại \url{https://traffigo-server.onrender.com}. Đây là host mặc định ứng dụng Android ưu tiên kết nối; ứng dụng kiểm tra \url{https://traffigo-server.onrender.com/health} để xác định trạng thái server và hiển thị chip xanh ``Server ML: đang hoạt động'' khi kết nối thành công. URL localhost và các địa chỉ emulator ở trên chỉ phục vụ phát triển cục bộ; server production dùng HTTPS và biến môi trường \texttt{PORT} do nền tảng cung cấp.
+
+\chapter{ĐẶC TRƯNG CÁC MÔ HÌNH}
+\textbf{Nhóm gom cụm --- 9 thuộc tính của nhánh Feature Selection:}
+\begin{itemize}[nosep]
+    \item speedLimitRatio (tỉ lệ tốc độ hiện tại trên giới hạn tốc độ), crossTime (thời gian vượt đoạn), trafficVolume (lưu lượng ước lượng);
+    \item congestionIndex (chỉ số ùn tắc), occupancy (độ chiếm dụng mặt đường), relativeCongestionIndex (chỉ số ùn tắc tương đối);
+    \item freeFlowSpeed (tốc độ dòng tự do), lengthKm (chiều dài đoạn đường), curvatureIndex (chỉ số độ cong).
+\end{itemize}
+\textbf{Nhóm dự đoán tốc độ --- Random Forest:}
+\begin{itemize}[nosep]
+    \item Thuộc tính số: freeFlowSpeed, speedLimit, hourOfDay, dayOfWeek, laneCount (số làn), intersectionCount (số giao lộ), routeSlopePercent (độ dốc), curvatureIndex, lengthKm;
+    \item Thuộc tính thời tiết: precipitation (lượng mưa), windspeed (tốc độ gió), temperature (nhiệt độ cao nhất trong ngày);
+    \item Thuộc tính phân loại (one-hot): roadType (loại đường), surface (bề mặt), dayType (loại ngày);
+    \item Biến đích: currentSpeed.
+\end{itemize}
+Cả currentSpeed, congestionIndex và jamFactor đều \textbf{không} được dùng làm đầu vào của mô hình dự đoán vì chúng được suy ra trực tiếp từ biến đích (leakage), làm kết quả đánh giá mất tin cậy.
+
+\end{document}

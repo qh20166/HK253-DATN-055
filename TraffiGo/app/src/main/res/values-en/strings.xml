@@ -1,0 +1,487 @@
+<resources>
+    <string name="app_name">TraffiGo</string>
+
+    <!-- Onboarding -->
+    <string name="onb_skip">Skip</string>
+    <string name="onb_continue">Continue</string>
+    <string name="onb_sign_in">Sign in</string>
+
+    <!-- Login screen -->
+    <string name="login_title">Welcome Back 👋</string>
+    <string name="login_subtitle">Sign in to your account</string>
+    <string name="label_email">Email</string>
+    <string name="hint_email">Your email</string>
+    <string name="label_password">Password</string>
+    <string name="hint_password">Your password</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_sign_in_google">Sign in with Google</string>
+    <string name="tv_forgot_password">Forgot Password?</string>
+    <string name="tv_no_account">Don\'t have an account? Sign Up</string>
+    <string name="tv_or_with">Or with</string>
+    <string name="err_google_auth">Google sign-in error</string>
+    <string name="err_fill_all">Please fill in all fields</string>
+    <string name="err_wrong_credentials">Wrong account or password</string>
+    <string name="err_firebase">Firebase connection error</string>
+
+    <!-- Main screen -->
+    <string name="greeting_morning">Good morning,</string>
+    <string name="greeting_afternoon">Good afternoon,</string>
+    <string name="greeting_evening">Good evening,</string>
+    <string name="default_username">User</string>
+    <string name="card_nav_title">Directions</string>
+    <string name="card_nav_subtitle">Find the best route</string>
+    <string name="card_map_title">Map</string>
+    <string name="card_map_subtitle">Traffic visualization</string>
+    <string name="card_news_title">News</string>
+    <string name="card_news_subtitle">Traffic news &amp; events</string>
+    <string name="card_offline_title">Offline maps</string>
+    <string name="hero_home_title">Home</string>
+    <string name="hero_home_subtitle_empty">No home address saved — tap to save</string>
+    <string name="hero_work_title">Work</string>
+    <string name="hero_work_subtitle_empty">No work address saved — tap to save</string>
+    <string name="hero_choice_go_from">Go from here</string>
+    <string name="hero_choice_go_from_sub">Use as starting point</string>
+    <string name="hero_choice_go_to">Go to here</string>
+    <string name="hero_choice_go_to_sub">Use as destination</string>
+    <string name="hero_choice_view_map">View on map</string>
+    <string name="hero_choice_view_map_sub">Just view the location, no directions</string>
+    <string name="history_title">Route History</string>
+    <string name="history_empty_title">No routes yet</string>
+    <string name="history_empty_subtitle">Routes you\'ve traveled will be saved here</string>
+    <string name="time_just_now">Just now</string>
+    <string name="time_minutes_ago">%d min ago</string>
+    <string name="time_hours_ago">%d hr ago</string>
+    <string name="time_days_ago">%d days ago</string>
+    <string name="bottom_nav_history">History</string>
+    <string name="favorites_title">Favorite places</string>
+    <string name="favorites_add">Add</string>
+    <string name="favorites_name_hint">Name it (e.g. School, Gym…)</string>
+    <string name="favorites_dialog_title">Name this place</string>
+    <string name="favorites_delete_title">Delete favorite place?</string>
+    <string name="favorites_delete_msg">Remove \"%1$s\" from favorites?</string>
+    <string name="toast_name_required">Please enter a name</string>
+    <string name="quick_utils_title">Quick utilities</string>
+    <string name="quick_voice">Voice assistant</string>
+    <string name="quick_heatmap">View map</string>
+    <string name="quick_offline">Offline</string>
+    <string name="quick_ride_title">Quick ride booking</string>
+    <string name="bottom_nav_home">Home</string>
+    <string name="bottom_nav_directions">Directions</string>
+    <string name="bottom_nav_news">News</string>
+    <string name="bottom_nav_settings">Settings</string>
+    <string name="cd_notifications">Notifications</string>
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_empty_title">No notifications yet</string>
+    <string name="notifications_empty_subtitle">Traffic jam alerts and route updates will appear here</string>
+    <string name="card_offline_subtitle">Use without internet</string>
+
+    <!-- Account bottom sheet -->
+    <string name="account_default_name">User Name</string>
+    <string name="account_default_email">user@email.com</string>
+    <string name="account_profile">Personal info</string>
+    <string name="account_profile_sub">View and edit profile</string>
+    <string name="account_appearance">Appearance</string>
+    <string name="account_appearance_sub">Customize colors &amp; background</string>
+    <string name="account_logout">Log out</string>
+
+    <!-- Customize sheet -->
+    <string name="customize_title">Customize appearance</string>
+    <string name="customize_theme">🎨  Accent color</string>
+    <string name="theme_hero_purple">Purple</string>
+    <string name="theme_hero_blue">Blue</string>
+    <string name="theme_hero_green">Green</string>
+    <string name="theme_hero_orange">Orange</string>
+    <string name="customize_text_color">✏️  Text color</string>
+    <string name="customize_font_size">🔡  Font size</string>
+    <string name="font_small">Small</string>
+    <string name="font_normal">Default</string>
+    <string name="font_large">Large</string>
+    <string name="customize_corner">⬛  Card corners</string>
+    <string name="corner_sharp">Sharp</string>
+    <string name="corner_round">Rounded</string>
+    <string name="corner_pill">Pill</string>
+    <string name="customize_language">🌐  Language</string>
+
+    <!-- Navigation screen -->
+    <string name="nav_title">ROUTE</string>
+    <string name="nav_step_start">Start your journey</string>
+    <string name="nav_step_choose_dest">Where do you want to go?</string>
+    <string name="nav_step_route">Route</string>
+    <string name="nav_address_placeholder">Tap to choose a location...</string>
+    <string name="nav_current_location">Current location</string>
+    <string name="nav_confirm_origin">Confirm origin</string>
+    <string name="nav_confirm_destination">Confirm destination</string>
+    <string name="nav_label_duration">DURATION</string>
+    <string name="nav_label_distance">DISTANCE</string>
+    <string name="nav_placeholder_duration">-- min</string>
+    <string name="nav_placeholder_distance">-- km</string>
+    <string name="nav_book_service">Book a ride</string>
+    <string name="nav_find_new">New route</string>
+    <string name="nav_finding">Finding route...</string>
+    <string name="nav_not_found_title">Route not found</string>
+    <string name="nav_find_failed">Routing failed</string>
+    <string name="nav_minutes">%1$d min</string>
+    <!-- Turn-by-turn navigation -->
+    <string name="nav_start">Start navigation</string>
+    <string name="nav_stop">Stop navigation</string>
+    <string name="nav_arrived">You have arrived.</string>
+    <string name="nav_arriving">Arriving soon</string>
+    <string name="nav_rerouting">Rerouting…</string>
+    <string name="nav_in_meters">In %1$d m</string>
+    <string name="nav_meters">%1$d m</string>
+    <string name="nav_maneuver_icon">Turn direction</string>
+    <!-- Community traffic incident reports -->
+    <string name="incident_report_title">Report an incident here</string>
+    <string name="incident_type_jam">Traffic jam</string>
+    <string name="incident_type_accident">Accident</string>
+    <string name="incident_type_flood">Flooding</string>
+    <string name="incident_type_police">Police</string>
+    <string name="incident_type_hazard">Hazard / Obstacle</string>
+    <string name="incident_report_subtitle">Reported at the map center</string>
+    <string name="incident_label_jam">Traffic jam</string>
+    <string name="incident_label_accident">Accident</string>
+    <string name="incident_label_flood">Flooding</string>
+    <string name="incident_label_hazard">Hazard</string>
+    <string name="incident_label_police">Police</string>
+    <string name="nav_incident_ahead_tts">%1$s ahead</string>
+    <string name="nav_incident_ahead">⚠️ %1$s ahead (~%2$d m)</string>
+    <string name="incident_reported">Incident reported. Thank you!</string>
+    <string name="incident_report_failed">Couldn\'t send the report</string>
+    <string name="incident_login_required">Sign in to report incidents</string>
+    <string name="incident_remove">Remove report</string>
+    <string name="incident_still_there">Still there</string>
+    <string name="incident_removed">Report removed</string>
+    <string name="incident_confirmed">Thanks for confirming</string>
+    <string name="incident_reported_ago">Reported %1$s</string>
+    <string name="incident_votes_summary">👍 %1$d  ·  👎 %2$d</string>
+    <string name="incident_downvote">No longer there</string>
+    <string name="incident_downvote_recorded">Your feedback has been recorded</string>
+    <string name="cd_report_incident">Report traffic incident</string>
+    <string name="nav_gps_lost">Searching for GPS…</string>
+    <string name="nav_arrive_at">arrive %1$s</string>
+    <string name="nav_voice_on">Voice on</string>
+    <string name="nav_voice_off">Voice off</string>
+    <string name="cd_toggle_voice">Toggle voice</string>
+    <string name="nav_reroute_failed">Couldn\'t find a new route. Check your connection and retry.</string>
+    <string name="nav_add_stop">➕ Add a stop</string>
+    <string name="nav_add_stop_count">➕ Add a stop (%1$d)</string>
+    <string name="nav_stop_added">Stop %1$d added</string>
+    <string name="nav_stop_label">Stop %1$d</string>
+    <string name="toast_select_stop">Tap a point on the map first</string>
+
+    <!-- Vehicle type toggle for route finding (Car = DRIVE, Motorbike = TWO_WHEELER) -->
+    <string name="nav_vehicle_car">Car</string>
+    <string name="nav_vehicle_motorbike">Motorbike</string>
+    <string name="nav_vehicle_walk">Walk</string>
+    <string name="nav_vehicle_beta_note">Routing for this mode is a Google Maps beta feature and may not be fully optimized yet.</string>
+
+    <!-- Trip cost estimate -->
+    <string name="nav_avoid_tolls">Avoid tolls</string>
+    <string name="nav_route_cost_estimate">Estimated fuel cost: ~%1$s VND</string>
+
+    <!-- Nearby places by category -->
+    <string name="nearby_title">Nearby places</string>
+    <string name="quick_nearby">Nearby</string>
+    <string name="nearby_cat_gas">Gas station</string>
+    <string name="nearby_cat_atm">ATM</string>
+    <string name="nearby_cat_food">Food</string>
+    <string name="nearby_cat_hospital">Hospital</string>
+    <string name="nearby_cat_parking">Parking</string>
+    <string name="nearby_empty_title">No results yet</string>
+    <string name="nearby_empty_subtitle">Pick a category above to find places near you</string>
+    <string name="nearby_no_results">No nearby places found</string>
+    <string name="nearby_searching">Searching…</string>
+
+    <!-- Parked car location -->
+    <string name="quick_parking">Parking</string>
+    <string name="parking_label">Car location</string>
+    <string name="parking_title">Your car is parked here</string>
+    <string name="parking_saved">Parking location saved</string>
+    <string name="parking_save_failed">Couldn\'t save parking location</string>
+    <string name="parking_removed">Parking spot removed</string>
+    <string name="parking_navigate">Directions to my car</string>
+    <string name="parking_clear">Clear parking spot</string>
+    <string name="parking_locating">Locating…</string>
+    <string name="parking_permission_needed">Location permission is needed to save a parking spot</string>
+    <string name="parking_parked_at">Parked at %1$s</string>
+    <string name="parking_distance_suffix"> · ~%1$s away</string>
+
+    <!-- Speedometer -->
+    <string name="speed_unit">km/h</string>
+    <string name="speed_limit_changed">Speed warning threshold: %1$d km/h</string>
+    <string name="speed_overlimit_warning">You are over the speed limit</string>
+
+    <!-- Speed limit + one-way road segment badges (OSM data) -->
+    <string name="nav_oneway_badge">⚠ One-way</string>
+    <string name="nav_speed_limit_voice">Speed limit %1$d</string>
+    <string name="nav_oneway_voice">One-way road ahead, watch your direction</string>
+    <string name="cd_speed_limit_badge">Speed limit sign</string>
+
+    <!-- Listen to article (TTS) -->
+    <string name="news_listen">Listen to article</string>
+    <string name="news_stop_listening">Stop listening</string>
+    <string name="ml_server_url_title">ML server address</string>
+    <string name="ml_server_url_hint">Enter URL like http://192.168.1.10:8000 (same WiFi as the machine running the server).</string>
+    <string name="ml_server_url_saved">ML server address saved</string>
+    <string name="news_extracting">Fetching content…</string>
+    <string name="ml_status_checking">● Checking ML server…</string>
+    <string name="ml_status_online">● ML server: online</string>
+    <string name="ml_status_offline">● ML server: offline</string>
+    <string name="news_extract_failed">Couldn\'t read this article</string>
+    <string name="label_ml_forecast">ML FORECAST (SERVER)</string>
+    <string name="ml_loading">Asking ML server…</string>
+    <string name="ml_offline">ML server unavailable</string>
+    <string name="ml_forecast_speed">≈ %s km/h · Level: %s</string>
+    <string name="ml_forecast_detail">Traffic cluster #%d · Incident risk: %s</string>
+    <string name="ml_level_high">heavy</string>
+    <string name="ml_level_moderate">moderate</string>
+    <string name="ml_level_low">clear</string>
+    <string name="ml_risk_low">LOW</string>
+    <string name="ml_risk_medium">MEDIUM</string>
+    <string name="ml_risk_high">HIGH</string>
+    <string name="nav_ml_pick">ML server suggests route #%d — switched</string>
+    <string name="voice_tts_unavailable">No TTS engine found — voice feedback is unavailable</string>
+    <string name="cd_listen_article">Listen to article</string>
+    <string name="cd_news_settings">Reading settings</string>
+    <string name="news_settings_title">🎧  Reading settings</string>
+    <string name="news_settings_speed">Reading speed</string>
+    <string name="speed_075">0.75x</string>
+    <string name="speed_100">1.0x</string>
+    <string name="speed_125">1.25x</string>
+    <string name="speed_150">1.5x</string>
+    <string name="news_read_no_articles">There are no articles to read in this category yet</string>
+    <string name="toast_no_steps">This route has no turn-by-turn data</string>
+    <string name="toast_no_route_to_start">No route to start navigation</string>
+
+    <!-- Voice assistant -->
+    <string name="voice_listening">Listening…</string>
+    <string name="voice_processing">Processing…</string>
+    <string name="voice_didnt_catch">Didn\'t catch that, try again</string>
+    <string name="voice_error">Something went wrong, try again later</string>
+    <string name="voice_no_recognizer">This device doesn\'t support speech recognition</string>
+    <string name="voice_need_mic">Microphone permission is needed for voice</string>
+    <string name="voice_no_gemini_key">Gemini API key not configured in AndroidManifest</string>
+    <string name="voice_hint">Tap outside to cancel</string>
+    <string name="voice_mic_cd">Voice assistant</string>
+    <string name="voice_fab_label">Speak</string>
+    <string name="voice_finding_place">Looking for \"%1$s\"…</string>
+    <string name="voice_place_not_found">Couldn\'t find \"%1$s\"</string>
+    <string name="voice_loading_saved">Loading saved place…</string>
+    <string name="voice_no_saved_home">You haven\'t saved a home address</string>
+    <string name="voice_no_saved_work">You haven\'t saved a work address</string>
+    <string name="voice_need_login">Please log in to use saved places</string>
+    <string name="voice_clarify_default">Where do you want to go?</string>
+    <string name="voice_unknown">Sorry, I didn\'t understand that</string>
+    <string name="voice_ack_navigate">Finding a route to %1$s</string>
+    <string name="voice_ack_start_nav">Starting navigation</string>
+    <string name="voice_ack_stop_nav">Navigation stopped</string>
+    <string name="voice_ack_switch">Switching route</string>
+    <string name="voice_ack_book">Opening ride booking</string>
+    <string name="voice_ack_share">Sharing location</string>
+    <string name="voice_ack_map">Opening traffic map</string>
+    <string name="voice_ack_news">Opening traffic news</string>
+    <string name="voice_ack_read_news">Opening the latest article to read it to you</string>
+    <string name="voice_ack_offline">Opening offline maps</string>
+    <string name="toast_select_location_share">Please select a location on the map to share!</string>
+    <string name="toast_search_error">Search error</string>
+    <string name="toast_login_required">Please log in to use this feature</string>
+    <string name="place_home">home</string>
+    <string name="place_work">work</string>
+    <string name="saved_home_label">HOME ADDRESS</string>
+    <string name="saved_work_label">WORK ADDRESS</string>
+    <string name="saved_home_title">Home address</string>
+    <string name="saved_work_title">Work address</string>
+    <string name="btn_use">Use</string>
+    <string name="btn_save_location">Save this location</string>
+    <string name="saved_none">No address yet</string>
+    <string name="btn_change">Change</string>
+    <string name="btn_add_address">Add address</string>
+    <string name="no_saved_addr">No %1$s address saved yet.</string>
+    <string name="confirm_save_place">Save this as your %1$s address?\n\n%2$s</string>
+    <string name="toast_load_addr_error">Error loading address</string>
+    <string name="toast_place_saved">Saved %1$s address</string>
+    <string name="toast_save_addr_error">Error saving address</string>
+    <string name="toast_places_not_init">Places API not initialized, check the key!</string>
+    <string name="toast_gps_off">Cannot locate you while GPS is off!</string>
+    <string name="toast_locating">Locating...</string>
+    <string name="marker_origin">Origin</string>
+    <string name="marker_destination">Destination</string>
+    <string name="marker_current_location">Current location</string>
+    <string name="toast_select_origin">Select an origin on the map!</string>
+    <string name="toast_select_destination">Select a destination on the map!</string>
+    <string name="route_alt_pattern">Route %1$d/%2$d — tap to switch</string>
+    <string name="toast_no_route_for_ride">No route to book a ride!</string>
+    <string name="share_location_prefix">📍 Location from TraffiGo:</string>
+    <string name="share_view_on_map">🔗 View on map:</string>
+    <string name="share_chooser">Share location via...</string>
+    <string name="share_dialog_title">Share location</string>
+    <string name="share_static">Send current location</string>
+    <string name="share_live_start">Start live sharing</string>
+    <string name="share_live_stop">Stop live sharing</string>
+    <string name="share_live_prefix">🔴 I\'m sharing my live location via TraffiGo. Open this link in the TraffiGo app to view (TraffiGo required):</string>
+    <string name="toast_live_share_started">Live location sharing started</string>
+    <string name="toast_live_share_stopped">Live location sharing stopped</string>
+    <string name="live_viewer_title">Live location</string>
+    <string name="live_viewer_status_live">LIVE SHARING</string>
+    <string name="live_viewer_status_stopped">Sharing stopped</string>
+    <string name="live_viewer_updated_now">Just updated</string>
+    <string name="live_viewer_updated_seconds">%d sec ago</string>
+    <string name="live_viewer_not_found">This share session wasn\'t found (it may have expired)</string>
+    <string name="live_viewer_default_name">TraffiGo user</string>
+    <string name="toast_no_api_key">API key not found!</string>
+    <string name="toast_no_route_found">No route found!</string>
+    <string name="route_traffigo_pick">TraffiGo picked a less congested route than Google\'s fastest</string>
+    <string name="route_alt_count">%1$d alternative route(s) on the map</string>
+    <string name="toast_connection_error">Connection error</string>
+    <string name="cong_heavy">⚠️ Heavy congestion ahead — about %1$d min extra</string>
+    <string name="cong_moderate">🟡 Some busy sections</string>
+    <string name="cong_clear">✅ Clear route</string>
+    <string name="route_quality_suffix"> · Route health: %1$s</string>
+
+    <!-- Traffic map screen -->
+    <string name="map_title">TRAFFIC STATUS</string>
+    <string name="label_speed">SPEED</string>
+    <string name="label_status">STATUS</string>
+    <string name="placeholder_speed">-- km/h</string>
+    <string name="placeholder_status">--</string>
+    <string name="status_free_flow">Free flow</string>
+    <string name="status_heavy">Heavy jam</string>
+    <string name="status_moderate">High density</string>
+    <string name="search_hint">Search places, streets...</string>
+    <string name="toast_place_not_found">Place not found!</string>
+    <string name="toast_heatmap_off">Heatmap off</string>
+    <string name="toast_data_not_ready">Data not ready, try again later!</string>
+    <string name="toast_heatmap_on">Heatmap: red = heavy congestion</string>
+
+    <!-- Offline maps -->
+    <string name="offline_title">Offline maps</string>
+    <string name="offline_empty_title">No maps yet</string>
+    <string name="offline_empty_sub">Tap + to save a map area</string>
+    <string name="cd_add_map">Add map</string>
+    <string name="offline_saved_date">Saved: %1$s</string>
+    <string name="offline_size_placeholder">-- MB</string>
+    <string name="map_name_placeholder">Map name</string>
+    <string name="date_placeholder">Save date</string>
+    <string name="cd_delete">Delete</string>
+    <string name="dialog_delete_title">Delete map</string>
+    <string name="dialog_delete_msg">Delete map \"%1$s\"? This cannot be undone.</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_save">Save</string>
+    <string name="offline_detail_default_title">Map detail</string>
+    <string name="offline_open_in_map">Open in map</string>
+    <string name="cd_offline_map">Offline map</string>
+    <string name="save_map_dialog_title">Save map</string>
+    <string name="save_map_dialog_desc">Name this area so you can find it offline later.</string>
+    <string name="save_map_name_hint">Map name</string>
+    <string name="btn_save_now">Save now</string>
+    <string name="save_region_title">Save this map area</string>
+    <string name="err_no_name">Please enter a name!</string>
+    <string name="err_name_exists">Map name already exists, choose another!</string>
+    <string name="toast_creating_file">Creating file...</string>
+    <string name="toast_map_saved">Map saved successfully!</string>
+    <string name="toast_save_file_error">Error saving file!</string>
+    <string name="toast_waiting_satellite">Waiting for satellite signal...</string>
+
+    <!-- Profile -->
+    <string name="profile_title">Personal Profile</string>
+    <string name="profile_change_avatar">Change avatar</string>
+    <string name="profile_label_name">Full Name</string>
+    <string name="profile_hint_name">Enter your name</string>
+    <string name="profile_label_phone">Phone Number</string>
+    <string name="profile_label_password">Password</string>
+    <string name="profile_save">Save Changes</string>
+    <string name="toast_name_empty">Name cannot be empty!</string>
+    <string name="profile_updating">Updating info...</string>
+    <string name="toast_upload_img_error">Image upload error</string>
+    <string name="toast_update_success">Updated successfully!</string>
+    <string name="toast_save_phone_error">Error saving phone number</string>
+    <string name="toast_update_name_img_success">Name and avatar updated!</string>
+    <string name="toast_update_profile_error">Error updating profile</string>
+
+    <!-- News -->
+    <string name="news_title">NEWS</string>
+    <string name="news_category">TRAFFIC</string>
+    <string name="news_source_thanhnien">Source: Thanh Nien</string>
+    <string name="news_source_vnexpress">Source: VnExpress</string>
+    <string name="news_source_generic">Source: %1$s</string>
+
+    <!-- News categories -->
+    <string name="news_cat_traffic">Traffic</string>
+    <string name="news_cat_current">Current affairs</string>
+    <string name="news_cat_business">Business</string>
+    <string name="news_cat_sports">Sports</string>
+    <string name="news_cat_all">All</string>
+    <string name="news_empty_title">No articles yet</string>
+    <string name="news_empty_subtitle">Try another category or check your connection</string>
+    <string name="news_end_of_playlist">You\'ve reached the end of the list</string>
+
+    <!-- Ride service -->
+    <string name="ride_title">BOOK A RIDE</string>
+    <string name="ride_choose">Choose a provider</string>
+    <string name="ride_destination_prefix">To: %1$s</string>
+    <string name="ride_grab_sub">Pickup &amp; dropoff pre-filled</string>
+    <string name="ride_xanhsm_sub">Open the EV app</string>
+    <string name="ride_be_sub">Open the be app</string>
+    <string name="ride_default_origin">Pickup</string>
+    <string name="ride_default_dest">Destination</string>
+    <string name="toast_app_not_installed">App not installed, opening Play Store...</string>
+
+    <!-- Share location -->
+    <string name="share_title">Share location</string>
+    <string name="share_locating">Locating...</string>
+    <string name="share_coord_placeholder">Coordinates: --, --</string>
+    <string name="share_button">SHARE THIS LOCATION</string>
+    <string name="toast_select_location">Please select a location!</string>
+    <string name="marker_your_location">Your location</string>
+    <string name="share_getting_address">Getting address...</string>
+    <string name="share_my_location_prefix">📍 My location:</string>
+
+    <!-- Route details -->
+    <string name="route_fastest">Fastest route</string>
+    <string name="route_calculating">Calculating time...</string>
+    <string name="route_loading_data">Loading traffic data...</string>
+    <string name="route_set_success">Fastest route has been set.</string>
+    <string name="route_error_no_path">Error: No route found.</string>
+    <string name="toast_check_csv">Check the CSV data!</string>
+    <string name="marker_start">Start</string>
+
+    <!-- Accessibility: content descriptions -->
+    <string name="cd_back">Back</string>
+    <string name="cd_account">Your account</string>
+    <string name="cd_show_hide_password">Show or hide password</string>
+    <string name="cd_home_shortcut">Go home</string>
+    <string name="cd_work_shortcut">Go to work</string>
+    <string name="cd_heatmap_toggle">Toggle heatmap mode</string>
+    <string name="cd_my_location">My location</string>
+    <string name="cd_search">Search</string>
+    <string name="cd_nav_icon">Directions icon</string>
+    <string name="cd_map_icon">Map icon</string>
+    <string name="cd_news_icon">News icon</string>
+    <string name="cd_offline_icon">Offline maps icon</string>
+
+    <string name="profile_hint_new_password">New password (leave blank to keep current)</string>
+    <string name="profile_password_too_short">New password must be at least 6 characters</string>
+    <string name="profile_password_updated">Password updated</string>
+    <string name="profile_password_error">Couldn\'t change password (please log in again)</string>
+
+    <!-- Onboarding -->
+    <string name="onboard_title_1">Finding your way is now easier</string>
+    <string name="onboard_desc_1">Discover optimal routes, avoid traffic jams, and arrive faster.</string>
+    <string name="onboard_title_2">Real-time traffic updates</string>
+    <string name="onboard_desc_2">See live traffic conditions, road incidents, and smart route suggestions.</string>
+    <string name="onboard_title_3">Start your journey</string>
+    <string name="onboard_desc_3">Get around the city with accurate directions and reliable road info.</string>
+    <string name="onboard_continue">Continue</string>
+    <string name="onboard_get_started">Get Started</string>
+
+    <!-- Offline map tiles -->
+    <string name="offline_downloading">Downloading offline map…</string>
+    <string name="offline_download_error">Failed to download map tiles (check your connection)</string>
+    <string name="offline_view_tiles">View offline map (zoomable)</string>
+
+    <!-- Custom place search screen -->
+    <string name="search_empty">Enter a street or place name to search</string>
+    <string name="search_no_result">No matching results found</string>
+    <string name="cd_clear_search">Clear search</string>
+</resources>

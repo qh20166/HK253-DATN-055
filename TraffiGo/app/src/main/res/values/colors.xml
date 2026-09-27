@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ===== BRAND / PRIMARY ===== -->
+    <color name="brand_primary">#5C4FE0</color>
+    <color name="brand_primary_dark">#4436C8</color>
+    <color name="brand_primary_container">#EFECFD</color>
+    <color name="brand_on_primary">#FFFFFF</color>
+    <color name="brand_on_primary_container">#3A2FA0</color>
+
+    <!-- Legacy aliases (keep for existing references) -->
+    <color name="primary">#5C4FE0</color>
+    <color name="primaryDark">#4436C8</color>
+    <color name="accent">#7B6ED6</color>
+    <color name="purple_500">#5C4FE0</color>
+
+    <!-- ===== SURFACES ===== -->
+    <color name="surface">#FDFDFD</color>
+    <color name="surface_variant">#F5F5F5</color>
+    <color name="surface_container">#EEEEEE</color>
+    <color name="on_surface">#111111</color>
+    <color name="on_surface_variant">#555555</color>
+
+    <!-- ===== OUTLINE / DIVIDER ===== -->
+    <color name="outline">#E7E6F0</color>
+    <color name="header_icon_bg">#F3F1FB</color>
+    <color name="outline_variant">#EEEEEE</color>
+
+    <!-- ===== BACKGROUND ===== -->
+    <color name="background">#FDFDFD</color>
+    <color name="on_background">#111111</color>
+
+    <!-- ===== ERROR ===== -->
+    <color name="error">#D32F2F</color>
+    <color name="error_container">#FFCDD2</color>
+    <color name="on_error">#FFFFFF</color>
+
+    <!-- ===== TRAFFIC STATUS ===== -->
+    <!-- congestionIndex 0.0–0.3: free flow -->
+    <color name="status_free_flow">#2E7D32</color>
+    <color name="status_free_flow_container">#E8F5E9</color>
+    <!-- congestionIndex 0.3–0.6: moderate -->
+    <color name="status_moderate">#E65100</color>
+    <color name="status_moderate_container">#FFF3E0</color>
+    <!-- congestionIndex 0.6–1.0: congested -->
+    <color name="status_congested">#C62828</color>
+    <color name="status_congested_container">#FFCDD2</color>
+
+    <!-- ===== TEXT ===== -->
+    <color name="text_primary">#111111</color>
+    <color name="text_secondary">#555555</color>
+    <color name="text_tertiary">#888888</color>
+    <color name="text_hint">#BBBBBB</color>
+    <color name="text_grey">#9E9E9E</color>
+    <color name="text_on_dark">#FFFFFF</color>
+    <color name="text_on_dark_secondary">#B3FFFFFF</color>
+    <color name="text_on_dark_tertiary">#99FFFFFF</color>
+
+    <!-- ===== GRADIENT (bg_gradient_main) ===== -->
+    <color name="gradient_start">#1A0D3D</color>
+    <color name="gradient_mid">#2D1B6E</color>
+    <color name="gradient_end">#3E2B8A</color>
+
+    <!-- ===== UTILITY ===== -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="scrim">#80000000</color>
+
+</resources>

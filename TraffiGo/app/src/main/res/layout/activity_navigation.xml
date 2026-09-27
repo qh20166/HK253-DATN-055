@@ -1,0 +1,626 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FDFDFD">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <include
+        android:id="@+id/layoutHeader"
+        layout="@layout/layout_header" />
+
+    <!-- Banner chỉ dẫn turn-by-turn (chỉ hiện khi đang dẫn đường) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layoutNavBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_margin="12dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="#1B5E20"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="18dp">
+
+            <ImageView
+                android:id="@+id/ivNavManeuver"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_directions_car"
+                app:tint="#FFFFFF"
+                android:contentDescription="@string/nav_maneuver_icon" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNavDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nav_placeholder_distance"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvNavInstruction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text=""
+                    android:textColor="#C8E6C9"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tvNavGpsWarning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/nav_gps_lost"
+                    android:textColor="#FFCDD2"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <!-- Giới hạn tốc độ + đường một chiều của đoạn đang đi (từ tag OSM) - chỉ hiện khi có dữ liệu -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvSpeedLimitBadge"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_speed_limit_sign"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#212121"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        android:contentDescription="@string/cd_speed_limit_badge" />
+
+                    <TextView
+                        android:id="@+id/tvOnewayBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_tag_warning"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="@string/nav_oneway_badge"
+                        android:textColor="#212121"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btnToggleVoice"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_volume_on"
+                app:tint="#FFFFFF"
+                android:contentDescription="@string/cd_toggle_voice" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Đồng hồ tốc độ khi đang dẫn đường: đổi đỏ + cảnh báo khi vượt ngưỡng tự chọn (chạm giữ để đổi) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardSpeedometer"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="92dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="36dp"
+        app:cardElevation="10dp"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvSpeedValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="#212121"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/speed_unit"
+                android:textColor="#9691AC"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Thông tin hành trình khi đang dẫn đường: thời gian còn lại + quãng đường + giờ đến (ETA) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardNavTripInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="92dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="22dp"
+        app:cardElevation="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="22dp"
+            android:paddingVertical="12dp">
+
+            <TextView
+                android:id="@+id/tvNavEta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nav_placeholder_duration"
+                android:textColor="#1B5E20"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvNavRemaining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text=""
+                android:textColor="#666666"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Nút dừng dẫn đường (chỉ hiện khi đang dẫn đường) -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnStopNav"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_margin="24dp"
+        android:paddingHorizontal="32dp"
+        android:text="@string/nav_stop"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:backgroundTint="#D32F2F"
+        app:cornerRadius="28dp"
+        app:icon="@drawable/ic_close"
+        app:iconTint="#FFFFFF" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="20dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Card.TopRounded"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:behavior_peekHeight="200dp"
+        app:behavior_hideable="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:paddingBottom="10dp">
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:background="#E0E0E0" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvStepTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nav_step_start"
+                    android:textColor="#000000"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/progressFindingRoute"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="10dp"
+                    android:indeterminateTint="#5C4FE0"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_address_box"
+                android:padding="16dp"
+                android:text="@string/nav_address_placeholder"
+                android:textColor="#555555"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/btnCurrentLoc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nav_current_location"
+                    android:textColor="#5C4FE0"
+                    android:textSize="13sp"
+                    app:chipIcon="@drawable/ic_location"
+                    app:chipIconTint="#5C4FE0"
+                    app:chipBackgroundColor="#F0EEFF"
+                    app:chipStrokeColor="#C4B8FF"
+                    app:chipStrokeWidth="1dp"
+                    style="@style/Widget.MaterialComponents.Chip.Action" />
+
+                <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
+
+                <ImageButton
+                    android:id="@+id/btnHomeShortcut"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_circle_button"
+                    android:src="@drawable/ic_home"
+                    app:tint="#5C4FE0"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/cd_home_shortcut"/>
+
+                <ImageButton
+                    android:id="@+id/btnWorkShortcut"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_circle_button"
+                    android:src="@drawable/ic_office"
+                    app:tint="#5C4FE0"
+                    android:contentDescription="@string/cd_work_shortcut"/>
+            </LinearLayout>
+
+            <!-- Loại phương tiện: đổi travelMode gửi cho Routes API (DRIVE/TWO_WHEELER). Tự ẩn khi
+                 tuyến đã hiển thị (bước 3) — đổi phương tiện lúc đó phải bấm "Tìm đường mới" lại. -->
+            <LinearLayout
+                android:id="@+id/layoutVehicleType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnVehicleCar"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:text="@string/nav_vehicle_car"
+                        android:textAllCaps="false"
+                        android:textSize="12sp"
+                        android:textColor="#FFFFFF"
+                        android:paddingHorizontal="4dp"
+                        app:backgroundTint="#5C4FE0"
+                        app:icon="@drawable/ic_directions_car"
+                        app:iconTint="#FFFFFF"
+                        app:iconSize="16dp"
+                        app:iconPadding="4dp"
+                        app:iconGravity="textStart"
+                        app:cornerRadius="21dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnVehicleMotorbike"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        android:text="@string/nav_vehicle_motorbike"
+                        android:textAllCaps="false"
+                        android:textSize="12sp"
+                        android:textColor="#5C4FE0"
+                        android:paddingHorizontal="4dp"
+                        app:backgroundTint="#F0EEFF"
+                        app:icon="@drawable/ic_motorbike"
+                        app:iconTint="#5C4FE0"
+                        app:iconSize="16dp"
+                        app:iconPadding="4dp"
+                        app:iconGravity="textStart"
+                        app:cornerRadius="21dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnVehicleWalk"
+                        android:layout_width="0dp"
+                        android:layout_height="42dp"
+                        android:layout_weight="1"
+                        android:text="@string/nav_vehicle_walk"
+                        android:textAllCaps="false"
+                        android:textSize="12sp"
+                        android:textColor="#5C4FE0"
+                        android:paddingHorizontal="4dp"
+                        app:backgroundTint="#F0EEFF"
+                        app:icon="@drawable/ic_walk"
+                        app:iconTint="#5C4FE0"
+                        app:iconSize="16dp"
+                        app:iconPadding="4dp"
+                        app:iconGravity="textStart"
+                        app:cornerRadius="21dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvVehicleBetaNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/nav_vehicle_beta_note"
+                    android:textColor="#9E9E9E"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
+
+                <!-- Chỉ áp dụng Ô tô/Xe máy - đi bộ không có phí cầu đường -->
+                <CheckBox
+                    android:id="@+id/cbAvoidTolls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/nav_avoid_tolls"
+                    android:textColor="#424242"
+                    android:textSize="13sp"
+                    android:buttonTint="#5C4FE0" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnMainAction"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="#5C4FE0"
+                android:text="@string/nav_confirm_origin"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:cornerRadius="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAddStop"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/nav_add_stop"
+                android:textColor="#5C4FE0"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:cornerRadius="16dp"
+                app:strokeColor="#5C4FE0"
+                app:strokeWidth="1.5dp"
+                app:backgroundTint="@android:color/transparent" />
+
+            <LinearLayout
+                android:id="@+id/layoutRouteInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="14dp"
+                    android:background="#EEEEEE" />
+
+                <!-- Duration + Distance cards -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="#F5F5F5"
+                        app:strokeWidth="0dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="14dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/nav_label_duration"
+                                android:textColor="#888888"
+                                android:textSize="10sp"
+                                android:letterSpacing="0.1"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/tvRouteDuration"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="@string/nav_placeholder_duration"
+                                android:textColor="#111111"
+                                android:textSize="22sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="#F5F5F5"
+                        app:strokeWidth="0dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="14dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/nav_label_distance"
+                                android:textColor="#888888"
+                                android:textSize="10sp"
+                                android:letterSpacing="0.1"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/tvRouteDistance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="@string/nav_placeholder_distance"
+                                android:textColor="#111111"
+                                android:textSize="22sp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvRouteCongestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text=""
+                    android:textColor="#E65100"
+                    android:textSize="13sp" />
+
+                <!-- Ước tính chi phí nhiên liệu - ẩn khi đi bộ (không tốn xăng) -->
+                <TextView
+                    android:id="@+id/tvRouteCost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text=""
+                    android:textColor="#616161"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvRouteAlternative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text=""
+                    android:textColor="#5C4FE0"
+                    android:textSize="12sp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:paddingVertical="4dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnStartNav"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/nav_start"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:icon="@drawable/ic_navigation"
+                    app:iconGravity="textStart"
+                    app:iconTint="#FFFFFF"
+                    app:backgroundTint="#5C4FE0"
+                    app:cornerRadius="28dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBookService"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/nav_book_service"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:icon="@drawable/ic_directions_car"
+                    app:iconGravity="textStart"
+                    app:iconTint="#FFFFFF"
+                    app:backgroundTint="#27AE60"
+                    app:cornerRadius="28dp" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnReset"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:paddingHorizontal="24dp"
+                android:text="@string/nav_find_new"
+                android:textColor="#5C4FE0"
+                android:textSize="13sp"
+                android:visibility="gone"
+                app:cornerRadius="20dp"
+                app:strokeColor="#5C4FE0"
+                app:strokeWidth="1.5dp"
+                app:backgroundTint="@android:color/transparent" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

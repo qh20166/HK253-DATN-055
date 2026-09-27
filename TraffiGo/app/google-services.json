@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "863034105903",
+    "firebase_url": "https://traffigo-1209b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "traffigo-1209b",
+    "storage_bucket": "traffigo-1209b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:863034105903:android:12b5ce7b45fe502e7d26da",
+        "android_client_info": {
+          "package_name": "com.example.traffigo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "863034105903-j9kruonq7j0s54fgdqj4kgkkmiuvbbml.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.traffigo",
+            "certificate_hash": "14524564813046daaf176fd2f9b446f78f835123"
+          }
+        },
+        {
+          "client_id": "863034105903-6b46jclmf068u7qtmvj07fsuhqgjjc14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUm7V1-9GqFO5jIavjEAztUVVhbF5MnGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "863034105903-6b46jclmf068u7qtmvj07fsuhqgjjc14.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
