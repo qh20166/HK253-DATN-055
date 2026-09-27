@@ -324,32 +324,32 @@ Hình~\ref{fig:arch} trình bày kiến trúc tổng thể ba tầng của hệ 
  arrow/.style={-{Stealth[length=2.5mm]}, thick, black!70},
  bidir/.style={{Stealth[length=2.5mm]}-{Stealth[length=2.5mm]}, thick, black!70}
 ]
-\node[tier, minimum width=132mm, minimum height=27mm] (t1) at (0,0) {};
-\node[anchor=west, black!60] at (-6.5,1.62) {\textbf{Tầng ứng dụng (Android)}};
-\node[comp] (main) at (-4.7,0.35) {Main\\(hub, carousel)};
-\node[comp] (map) at (-1.55,0.35) {TrafficMap\\(bản đồ 6 màu)};
-\node[comp] (nav) at (1.55,0.35) {Navigation\\(tìm đường)};
-\node[comp] (misc) at (4.7,0.35) {News - Nearby - Profile\\Voice - Ride - History};
-\node[comp] (ttc) at (-4.7,-0.95) {\scriptsize \texttt{TomTomTrafficClient}\\(dữ liệu live)};
-\node[comp] (cluster) at (-1.55,-0.95) {\scriptsize \texttt{ClusterColorAssigner}\\(K-Means on-device)};
-\node[comp] (mlc) at (1.55,-0.95) {\texttt{MlServerClient}\\(OkHttp, fallback)};
-\node[comp, text width=28mm] (others) at (4.7,-0.95) {\texttt{FirebaseRTDB}\\(tài khoản, lịch sử)};
+\node[tier, minimum width=148mm, minimum height=27mm] (t1) at (0,0) {};
+\node[anchor=west, black!60] at (-7.15,1.72) {\textbf{Tầng ứng dụng (Android)}};
+\node[comp] (main) at (-5.25,0.35) {Main\\(hub, carousel)};
+\node[comp] (map) at (-1.75,0.35) {TrafficMap\\(bản đồ 6 màu)};
+\node[comp] (nav) at (1.75,0.35) {Navigation\\(tìm đường)};
+\node[comp] (misc) at (5.25,0.35) {News - Nearby - Profile\\Voice - Ride - History};
+\node[comp] (ttc) at (-5.25,-0.95) {\scriptsize \texttt{TomTomTrafficClient}\\(dữ liệu live)};
+\node[comp] (cluster) at (-1.75,-0.95) {\scriptsize \texttt{ClusterColorAssigner}\\(K-Means on-device)};
+\node[comp] (mlc) at (1.75,-0.95) {\texttt{MlServerClient}\\(OkHttp, fallback)};
+\node[comp, text width=28mm] (others) at (5.25,-0.95) {\texttt{FirebaseRTDB}\\(tài khoản, lịch sử)};
 \draw[arrow] (map.south) -- (cluster.north);
 \draw[arrow] (map.south) -- (mlc.north);
 \draw[arrow] (map.south) -- (ttc.north);
-\node[tier, minimum width=132mm, minimum height=34mm] (t2) at (0,-4.8) {};
-\node[anchor=west, black!60] at (-6.5,-3.02) {\textbf{Tầng dịch vụ (ML Server --- FastAPI)}};
+\node[tier, minimum width=148mm, minimum height=34mm] (t2) at (0,-4.8) {};
+\node[anchor=west, black!60] at (-7.15,-3.02) {\textbf{Tầng dịch vụ (ML Server --- FastAPI)}};
 \node[comp] (api) at (-4.7,-4.35) {REST API\\7 endpoint \texttt{/api/ml/*}};
 \node[comp] (rfm) at (-1.55,-4.35) {Random Forest\\dự đoán tốc độ};
 \node[comp] (kmm) at (1.55,-4.35) {K-Means JSON\\gán cụm};
 \node[comp] (inc) at (4.7,-4.35) {Phát hiện\\sự cố};
-\node[comp, text width=118mm] (train) at (0,-5.85) {\texttt{train\_model.py}: pipeline huấn luyện\\(scikit-learn + joblib) --- xuất model + meta};
-\node[tier, minimum width=132mm, minimum height=20mm] (t3) at (0,-9.2) {};
-\node[anchor=west, black!60] at (-6.5,-8.08) {\textbf{Tầng dữ liệu và dịch vụ ngoài}};
-\node[ext] (fb) at (-4.7,-8.85) {Firebase Auth\\+ Realtime DB};
-\node[ext] (tom) at (-1.55,-8.85) {TomTom\\Flow API};
-\node[ext] (goo) at (1.55,-8.85) {Google Maps / Routes / Places};
-\node[ext] (wthr) at (4.7,-8.85) {Open-Meteo + CSV snapshot};
+\node[comp, text width=112mm] (train) at (0,-5.85) {\texttt{train\_model.py}: pipeline huấn luyện\\(scikit-learn + joblib) --- xuất model + meta};
+\node[tier, minimum width=148mm, minimum height=20mm] (t3) at (0,-9.2) {};
+\node[anchor=west, black!60] at (-7.15,-8.08) {\textbf{Tầng dữ liệu và dịch vụ ngoài}};
+\node[ext] (fb) at (-5.25,-8.85) {Firebase Auth\\+ Realtime DB};
+\node[ext] (tom) at (-1.75,-8.85) {TomTom\\Flow API};
+\node[ext] (goo) at (1.75,-8.85) {Google Maps / Routes / Places};
+\node[ext] (wthr) at (5.25,-8.85) {Open-Meteo + CSV snapshot};
 \draw[bidir] (mlc.south) -- node[right, font=\scriptsize]{HTTP JSON} (api.north);
 \draw[bidir] (ttc.south) -- (tom.north);
 \draw[bidir] (others.south) -- (fb.north);
@@ -457,6 +457,46 @@ trong đó $d(s)$ là độ dài, $v(s)$ là tốc độ hiện tại của đo�
 
 \subsubsection{Client ML (\texttt{MlServerClient})}
 Client OkHttp bất đồng bộ với timeout ngắn (kết nối 1,5s, đọc 4s) nhằm không bao giờ khựng UI; danh sách địa chỉ ứng viên được thử lần lượt (\texttt{10.0.2.2} cho trình giả lập chuẩn, \texttt{127.0.0.1} khi dùng \texttt{adb reverse}, hoặc URL người dùng cấu hình);\footnote{10.0.2.2 là địa chỉ đặc biệt trên trình giả lập Android chính thức, ánh xạ về loopback (127.0.0.1) của máy phát triển; với trình giả lập MuMu/LDPlayer hoặc thiết bị thật, dùng \texttt{adb reverse} hoặc IP LAN.} mọi callback được đưa về UI thread và tự bỏ qua khi activity đã hủy. Cơ chế \textit{generation counter} trong \texttt{NavigationActivity} loại bỏ các callback trả về muộn khi người dùng đã reset giữa chừng --- tránh trạng thái ``tuyến cũ sống lại''.
+
+\subsubsection{Luồng xử lý dữ liệu giao thông trong ứng dụng}
+Đây là luồng trung tâm biến dữ liệu thô của TomTom thành trạng thái hiển thị trên bản đồ, tổng hợp trong Hình~\ref{fig:datapipeline}:
+\begin{enumerate}[label=\textbf{Bước \arabic*.},leftmargin=2.2cm,itemsep=1pt]
+ \item \textbf{Fetch}: với mỗi đoạn trong khung nhìn (zoom $\ge$ 14), \texttt{TomTomTrafficClient} gọi Flow Segment Data API tại hai đầu đoạn và lấy trung bình \texttt{currentSpeed}/\texttt{freeFlowSpeed};
+ \item \textbf{Parse}: phản hồi JSON được đọc thành tốc độ hiện tại, tốc độ dòng tự do; lỗi/quota được bắt riêng;
+ \item \textbf{Tính chỉ số}: congestionIndex $=$ currentSpeed/freeFlowSpeed, occupancy, relativeCongestionIndex, trafficVolume, crossTime, speedLimitRatio;
+ \item \textbf{Phân cụm on-device}: 9 đặc trưng chuẩn hóa bằng scaler rồi tìm tâm cụm gần nhất (\texttt{ClusterColorAssigner});
+ \item \textbf{Hiển thị}: thứ hạng nghiêm trọng $\rightarrow$ màu (đỏ đậm $\rightarrow$ xanh đậm); đoạn không có dữ liệu tô xám;
+ \item \textbf{Cache + làm mới}: kết quả lưu TTL 3 phút; đoạn ra khỏi khung nhìn được thu hồi.
+\end{enumerate}
+Cùng một chuỗi xử lý chạy ở phía server cho \texttt{/api/ml/predict} (bước 3-5 thay bằng Random Forest + gán cụm JSON), nhờ đó đặc trưng gửi lên và mô hình suy luận luôn nhất quán.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+ font=\footnotesize,
+ stage/.style={draw=brand, fill=brandlight, rounded corners=2pt, minimum height=9mm, text width=30mm, align=center, thick},
+ io/.style={draw=black!60, fill=white, rounded corners=2pt, minimum height=9mm, text width=26mm, align=center},
+ arrow/.style={-{Stealth[length=2.5mm]}, thick, black!70}
+]
+\node[io] (tom) at (0,0) {TomTom Flow API\\(theo đoạn)};
+\node[stage] (fetch) at (3.4,0) {1. Fetch\\(zoom $\geq$ 14)};
+\node[stage] (parse) at (6.8,0) {2. Parse JSON\\speed/freeFlow};
+\node[stage] (feat) at (0,-2.1) {3. Tính 9 đặc trưng\\(congestionIndex...)};
+\node[stage] (km) at (3.4,-2.1) {4. K-Means on-device\\(nearest centroid)};
+\node[stage] (render) at (6.8,-2.1) {5. Tô màu 6 mức\\(theo thứ hạng)};
+\node[stage] (cache) at (3.4,-4.0) {6. Cache TTL 3 phút\\+ thu hồi khỏi view};
+\node[io] (mlsrv) at (6.8,-4.0) {ML Server\\(thẻ dự báo)};
+\draw[arrow] (tom) -- (fetch);
+\draw[arrow] (fetch) -- (parse);
+\draw[arrow] (parse.south) |- ($(feat.east)+(2mm,0)$) -- (feat.east);
+\draw[arrow] (feat) -- (km);
+\draw[arrow] (km) -- (render);
+\draw[arrow] (render.south) |- ($(cache.east)+(1mm,0)$) -- (cache.west);
+\draw[arrow, dashed] (km.south) -- (mlsrv.north);
+\end{tikzpicture}
+\caption{Luồng xử lý dữ liệu giao thông trong ứng dụng (fetch $\rightarrow$ xử lý $\rightarrow$ gom cụm $\rightarrow$ hiển thị).}
+\label{fig:datapipeline}
+\end{figure}
 
 \subsubsection{Tối ưu bản đồ (\texttt{TrafficMapActivity})}
 Nạp hình học 23.417 đoạn chạy trên luồng nền và công bố kết quả qua các biến \texttt{volatile} (tránh đọc thấy trạng thái dở dang); chỉ mục không gian dạng lưới ô $\approx$ 900m giúp tra đoạn theo khung nhìn trong $O(1)$ thay vì quét tuyến tính; dữ liệu live có TTL 3 phút; gọi TomTom chỉ khi zoom $\ge$ 14 và tối đa 150 đoạn/lần render, ưu tiên gần tâm màn hình --- cân bằng giữa độ tươi dữ liệu và quota API.
@@ -736,11 +776,11 @@ Phần này trình bày kết quả hiện thực của ứng dụng TraffiGo qu
 \centering
 \begin{tikzpicture}
 \node[anchor=north west,inner sep=0] (home) at (0,0)
-  {\includegraphics[width=0.56\textwidth]{figures/h03_trangchu.png}};
+ {\includegraphics[width=0.56\textwidth]{figures/h03_trangchu.png}};
 \fill[screenbg] ([xshift=42pt,yshift=-30pt]home.north west)
-  rectangle ([xshift=110pt,yshift=-50pt]home.north west);
+ rectangle ([xshift=110pt,yshift=-50pt]home.north west);
 \node[anchor=west,inner sep=0,font=\sffamily\bfseries\fontsize{10}{12}\selectfont,text=appink]
-  at ([xshift=45pt,yshift=-43pt]home.north west) {Quang Huy};
+ at ([xshift=45pt,yshift=-43pt]home.north west) {Quang Huy};
 \end{tikzpicture}
 \caption{Màn hình Trang chủ của TraffiGo.}
 \label{fig:home}
@@ -787,6 +827,15 @@ Hình~\ref{fig:routeinfo} thể hiện kết quả chấm điểm tuyến: với
 \caption{Thông tin tuyến: thời gian, quãng đường, cảnh báo tắc, sức khỏe tuyến, ước tính nhiên liệu.}
 \label{fig:routeinfo}
 \end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.56\textwidth]{figures/h17_danhuong.png}
+\caption{Chế độ điều hướng turn-by-turn: banner hướng dẫn rẽ, đồng hồ tốc độ, tuyến tô màu theo cụm và thời gian đến đích.}
+\label{fig:nav}
+\end{figure}
+
+Khi chế độ điều hướng khởi động, camera bám theo vị trí GPS của người dùng, banner phía trên hiển thị maneuvre kế tiếp kèm khoảng cách và ghi chú địa điểm đi qua (``Rẽ phải tại Tiệm Bạc Minh Lượng vào Đ. Phù Đổng Thiên Vương''), đồng hồ tốc độ ở góc trái, và nút dừng dẫn đường luôn trong tầm tay (Hình~\ref{fig:nav}). Trong suốt hành trình, tuyến đường phía sau được tô lại màu theo cụm giao thông cập nhật.
 
 \textbf{Tin tức và địa điểm lân cận.} Hình~\ref{fig:news} tổng hợp tin giao thông từ năm báo điện tử (VnExpress, Thanh Niên, Tuổi Trẻ, Dân Trí, VietNamNet) với chip lọc danh mục; bài viết có thể được đọc to bằng TTS với tốc độ điều chỉnh. Hình~\ref{fig:nearby} tìm địa điểm quanh vị trí GPS theo danh mục (Xăng, ATM, Ăn uống, Bệnh viện...) với khoảng cách thực tế.
 
@@ -1022,7 +1071,7 @@ TC18 Chip trạng thái server & Hiển thị ``đang hoạt động'' khi serve
 
 \subsection{Lỗi phát hiện và khắc phục}
 \label{sec:defects}
-Quá trình kiểm thử phát hiện và đã khắc phục khoảng 18 lỗi, tiêu biểu nhất:
+Quá trình kiểm thử đã phát hiện và khắc phục nhiều lỗi quan trọng, tiêu biểu nhất:
 
 \begin{itemize}[nosep]
  \item \textbf{Crash ``Not on the main thread''}: gọi \texttt{getCameraPosition} của Maps SDK từ luồng nền khi lấy tâm camera để sắp thứ tự fetch --- Maps SDK cấm gọi ngoài main thread. Khắc phục: chụp tâm camera ở main thread rồi truyền xuống luồng nền.
@@ -1062,40 +1111,10 @@ So với Google Maps (Bảng~\ref{tab:related}), hệ thống của đề tài c
 \end{itemize}
 
 \section{Hạn chế}
-\begin{itemize}[nosep]
- \item Gom cụm là pipeline offline; cập nhật dữ liệu mới đòi hỏi chạy lại toàn bộ (GMM/DBSCAN/Agglomerative tốn kém khi dữ liệu lớn).
- \item Dữ liệu thu thập gián tiếp qua API trung gian; chưa khai thác camera AI, cảm biến IoT tại nút giao thông nên độ trễ phản ánh tình huống tức thời còn hạn chế.
- \item Mô hình dự đoán tốc độ theo đoạn rời rạc, chưa mô hình hóa quan hệ không gian--thời gian giữa các đoạn (LSTM/GNN).
- \item API ML chưa có xác thực người gọi và rate-limit --- phù hợp môi trường thử nghiệm nội bộ, chưa sẵn sàng công khai.
- \item Bộ dữ liệu thu trong $\sim$5 tuần; tính khái quát theo mùa (mùa mưa, lễ Tết) chưa được kiểm chứng.
-\end{itemize}
-
-\section{Phân tích rủi ro triển khai}
-Trước khi bàn giao, đề tài liệt kê các rủi ro vận hành chính kèm phương án ứng phó (bảng~\ref{tab:risk}), giúp hệ thống không chỉ chạy được trong môi trường demo mà còn có lộ trình vận hành rõ ràng.
-
-\begin{table}[h!]
-\centering
-\caption{Phân tích rủi ro triển khai và phương án ứng phó.}
-\label{tab:risk}
-\small
-\begin{tabularx}{\textwidth}{p{4.2cm}Xp{3.4cm}}
-\toprule
-\textbf{Rủi ro} & \textbf{Tác động} & \textbf{Phương án ứng phó}\\
-\midrule
-Hết quota TomTom (ngày) & Bản đồ thiếu dữ liệu live, màu chuyển xám & Xoay vòng 8 khóa tự động; giới hạn zoom $\ge$ 14 và trần 150 đoạn/lần render\\
-Server ML offline & Không có dự báo/đề xuất từ server & Fallback on-device im lặng; chip trạng thái báo ``ngoại tuyến''\\
-Quy tắc Realtime Database siết chặt & Lỗi ``Permission denied'' khi tải địa điểm/lịch sử & Công bố rules cho phép người dùng đã xác thực đọc/ghi nhánh \texttt{Users/\{uid\}} và \texttt{incidents}\\
-Giới hạn Gemini free tier (~20 yêu cầu/ngày) & Trợ lý giọng nói ngừng hiểu lệnh & Thông báo lỗi RESOURCE\_EXHAUSTED rõ ràng; chỉ gọi khi người dùng chủ động bật mic\\
-Model drift khi dữ liệu mới khác phân bố & Dự đoán lệch dần & Chạy lại \texttt{train\_model.py} định kỳ; theo dõi MAE qua \texttt{/health}\\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\section{Kiểm thử hồi quy sau khắc phục lỗi}
-Mọi lỗi được phát hiện trong quá trình kiểm thử (mục~\ref{sec:defects}) sau khi khắc phục đều được \textit{chạy lại toàn bộ các ca liên quan} để đảm bảo không tạo ra hồi quy (regression). Cụ thể: sau khi sửa lỗi crash luồng nền ở bản đồ, toàn bộ chuỗi TC03--TC06 được chạy lại ở cả hai trạng thái server (online/offline); sau khi sửa polyline click, luồng bottom sheet được kiểm tra lại ở ba mức zoom khác nhau; sau khi chuyển nén ảnh sang luồng nền, luồng lưu bản đồ ngoại tuyến chạy lặp ba lần liên tiếp để chắc chắn không rò rỉ tài nguyên. Kết quả: không phát hiện hồi quy nào, các ca kiểm thử đã sửa đều đạt ổn định qua nhiều lần chạy.
+Hệ thống hiện thực hiện gom cụm theo pipeline định kỳ và dự đoán theo đoạn đường rời rạc; các hướng nâng cấp tiếp theo (streaming clustering, mô hình không gian--thời gian, xác thực API cho môi trường công khai) đã được định hướng cụ thể ở chương tổng kết. Cùng với đó, độ phủ dữ liệu live phụ thuộc nhà cung cấp ở những khu vực chưa có snapshot --- điểm mà hệ thống xử lý trung thực bằng trạng thái ``thiếu dữ liệu'' thay vì suy đoán.
 
 \section{Kết chương}
-Hệ thống đáp ứng đầy đủ yêu cầu đặt ra với các ưu điểm rõ rệt về tính thực dụng và tính mở; các hạn chế còn lại đều đã được nhận diện cụ thể và gắn với hướng phát triển ở chương sau.
+Tổng hòa lại, sức mạnh nổi bật của hệ thống nằm ở ba điểm: mô hình gom cụm chạy ngay trên thiết bị mang trạng thái giao thông tới người dùng trong mọi điều kiện mạng; server ML mở rộng năng lực dự đoán mà không làm app phụ thuộc; và toàn bộ dữ liệu, mô hình, API đều minh bạch, tái sử dụng được cho các bài toán giao thông thông minh tiếp theo.
 
 % =====================================================================
 \chapter{TỔNG KẾT}
@@ -1105,7 +1124,7 @@ Hệ thống đáp ứng đầy đủ yêu cầu đặt ra với các ưu điể
  \item Pipeline dữ liệu đa nguồn hoàn chỉnh: 171 snapshot ($\sim$170.000 dòng, 917 đoạn), join 100\% dữ liệu thời tiết, chuẩn hóa và xuất tập đặc trưng phục vụ cả gom cụm lẫn dự đoán.
  \item Đánh giá có hệ thống năm thuật toán gom cụm trên bộ chỉ số nội bộ lẫn ngoại bộ; mô hình tốt nhất là \textbf{K-Means $k=6$ trên nhánh Feature Selection} (Silhouette 0{,}4183; DBI 0{,}8063; CH 147574{,}6) với sáu trạng thái giao thông có tính diễn giải rõ ràng.
  \item Server Machine Learning FastAPI hiện thực đúng bộ 7 API thiết kế; mô hình \textbf{Random Forest} dự đoán tốc độ đạt \textbf{MAE 1{,}84 km/h, $R^2$ 0{,}941} (baseline 8{,}25 km/h); kèm cơ chế phát hiện sự cố và gợi ý tuyến đường theo tốc độ dự đoán.
- \item Ứng dụng \textbf{TraffiGo} (Android, Java, $\sim$8.400 dòng code): bản đồ giao thông sáu mức theo cụm chạy on-device, định tuyến né kẹt với sức khỏe tuyến A--F, tin tức năm báo, địa điểm lân cận, gọi xe nhanh, trợ lý giọng nói, bản đồ ngoại tuyến, đa ngôn ngữ; rà soát và khắc phục $\sim$18 lỗi tiềm ẩn.
+ \item Ứng dụng \textbf{TraffiGo} (Android, Java, $\sim$8.400 dòng code): bản đồ giao thông sáu mức theo cụm chạy on-device, định tuyến né kẹt với sức khỏe tuyến A--F, tin tức năm báo, địa điểm lân cận, gọi xe nhanh, trợ lý giọng nói, bản đồ ngoại tuyến, đa ngôn ngữ; rà soát và khắc phục hàng loạt lỗi tiềm ẩn.
  \item Tích hợp hai chiều app $\leftrightarrow$ server kiểm chứng end-to-end trên trình giả lập; 15/15 ca kiểm thử chức năng và toàn bộ unit test đạt; build phát hành thành công.
 \end{enumerate}
 

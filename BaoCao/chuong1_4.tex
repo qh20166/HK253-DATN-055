@@ -111,7 +111,7 @@ Hình~\ref{fig:kmeansdemo} minh họa cơ chế trên bằng một ví dụ hai 
 \end{figure}
 
 \subsection{Nhóm phân hoạch: MiniBatchKMeans}
-MiniBatchKMeans là biến thể tối ưu tốc độ của K-Means: thay vì dùng toàn bộ dữ liệu, mỗi vòng lặp chỉ sử dụng một lô con ngẫu nhiên (mini-batch) để gán cụm và cập nhật tâm theo tốc độ học giảm dần. Cách làm này giảm mạnh thời gian huấn luyện trên tập dữ liệu lớn, tuy nhiên do chỉ cập nhật tâm dựa trên tập con, kết quả có thể kém ổn định hơn K-Means truyền thống nếu kích thước lô quá nhỏ. Với dữ liệu giao thông có hàng trăm nghìn mẫu, MiniBatchKMeans là ứng viên đáng khảo sát khi cân nhắc giữa chất lượng và thời gian chạy.
+MiniBatchKMeans là biến thể tối ưu tốc độ của K-Means: mỗi vòng lặp chỉ dùng một lô dữ liệu con ngẫu nhiên để gán cụm và cập nhật tâm, giảm mạnh thời gian huấn luyện trên tập dữ liệu lớn; đổi lại kết quả kém ổn định hơn nếu kích thước lô quá nhỏ.
 
 \subsection{Nhóm mật độ: DBSCAN}
 DBSCAN~\cite{ester} (Density-Based Spatial Clustering of Applications with Noise) phân cụm dựa trên mật độ điểm. Hai tham số điều khiển thuật toán: bán kính lân cận $\epsilon$ và số điểm tối thiểu \textit{minPts}. Một điểm được gọi là \textit{điểm lõi} nếu trong bán kính $\epsilon$ quanh nó có ít nhất \textit{minPts} điểm; các điểm lõi kết nối trực tiếp hoặc gián tiếp với nhau tạo thành cụm; những điểm không thuộc cụm nào được đánh dấu là nhiễu (noise). Ưu điểm nổi bật của DBSCAN là không cần xác định trước số cụm, phát hiện được cụm có hình dạng bất kỳ và có khả năng loại bỏ điểm ngoại lệ --- một đặc tính hữu ích với dữ liệu giao thông chứa các bản ghi bất thường. Nhược điểm là kết quả nhạy cảm với việc chọn $\epsilon$ và khó hoạt động ổn định khi mật độ dữ liệu không đồng đều giữa các vùng.
@@ -122,10 +122,10 @@ GMM~\cite{reynolds} giả định dữ liệu được sinh từ hỗn hợp $K$
 p(x) = \sum_{k=1}^{K} \pi_k \, \mathcal{N}(x \mid \mu_k, \Sigma_k), \qquad \sum_{k=1}^{K} \pi_k = 1,
 \label{eq:gmm}
 \end{equation}
-với $\pi_k$, $\mu_k$, $\Sigma_k$ lần lượt là trọng số, vector trung bình và ma trận hiệp phương sai của thành phần thứ $k$. Tham số được ước lượng bằng thuật toán EM (Expectation--Maximization): bước E tính xác suất hậu nghiệm $\gamma_{ik}$ rằng điểm $x_i$ thuộc thành phần $k$; bước M cập nhật lại $(\pi_k, \mu_k, \Sigma_k)$ dựa trên các xác suất này. Khác với K-Means gán cứng mỗi điểm vào đúng một cụm, GMM cho phép gán mềm theo xác suất và hỗ trợ cụm elip nhờ ma trận hiệp phương sai đầy đủ; đổi lại, chi phí tính toán và bộ nhớ cao hơn, và mô hình dễ bị overfitting khi số chiều lớn mà số mẫu không đủ.
+với $\pi_k$, $\mu_k$, $\Sigma_k$ lần lượt là trọng số, vector trung bình và ma trận hiệp phương sai của thành phần thứ \k. Tham số được ước lượng bằng thuật toán EM (Expectation--Maximization). Khác với K-Means gán cứng, GMM cho phép gán mềm theo xác suất và hỗ trợ cụm elip; đổi lại chi phí tính toán và bộ nhớ cao hơn.
 
 \subsection{Nhóm phân cấp: Agglomerative Clustering}
-Agglomerative Clustering thuộc nhóm phân cấp bottom-up: khởi đầu mỗi điểm dữ liệu là một cụm, sau đó thuật toán liên tục gộp hai cụm gần nhau nhất theo một tiêu chí liên kết (single-linkage, complete-linkage, average-linkage hoặc Ward) cho tới khi đạt số cụm mong muốn. Phương pháp này không yêu cầu khởi tạo ngẫu nhiên nên kết quả deterministic, đồng thời sinh ra cả cây phân cấp (dendrogram) giúp quan sát cấu trúc dữ liệu ở nhiều mức chi tiết. Tuy nhiên, độ phức tạp $O(n^2)$ đến $O(n^3)$ về thời gian và $O(n^2)$ về bộ nhớ khiến nó khó mở rộng cho tập dữ liệu rất lớn.
+Agglomerative Clustering thuộc nhóm phân cấp bottom-up: khởi đầu mỗi điểm là một cụm rồi liên tục gộp hai cụm gần nhau nhất theo tiêu chí liên kết (single/complete/average-linkage hoặc Ward). Kết quả deterministic và sinh ra cây phân cấp giúp quan sát cấu trúc dữ liệu; đổi lại độ phức tạp $\O(n^2)$ trở lên khiến nó khó mở rộng cho tập dữ liệu lớn.
 
 \subsection{So sánh các thuật toán}
 Bảng~\ref{tab:cmp_alg} tổng hợp đặc tính của năm thuật toán khảo sát trên các tiêu chí then chốt của bài toán giao thông: số cụm xác định trước, hình dạng cụm, độ phức tạp và khả năng xử lý nhiễu.
@@ -195,7 +195,7 @@ CH = \frac{\mathrm{tr}(B_K)}{\mathrm{tr}(W_K)} \cdot \frac{n - K}{K - 1},
 trong đó $B_K$ là ma trận phân tán giữa-cụm và $W_K$ là ma trận phân tán trong-cụm. CH càng \textit{cao} càng tốt.
 
 \subsection{Chỉ số ngoại bộ (external)}
-Khi có nhãn trạng thái giao thông tham chiếu (do đề tài xây dựng từ ngưỡng LOS và tốc độ tương đối, trình bày ở Chương 6), chất lượng gom cụm có thể đánh giá bằng mức khớp với nhãn tham chiếu: \textbf{ARI} (Adjusted Rand Index)~\cite{hubert} đo mức đồng thuận của mọi cặp điểm giữa hai phân hoạch, hiệu chỉnh cho trường hợp trùng khớp ngẫu nhiên, $\in [-1,1]$; \textbf{NMI} (Normalized Mutual Information) đo lượng thông tin chia sẻ giữa hai phân hoạch đã chuẩn hóa về $[0,1]$; \textbf{FMI} (Fowlkes--Mallows) và \textbf{F-Measure} là đại lượng hình học trung bình của độ chính xác và độ phủ cặp điểm; \textbf{Entropy} đo mức hỗn tạp nhãn tham chiếu trong từng cụm (càng thấp càng tốt).
+Khi có nhãn trạng thái giao thông tham chiếu (xây dựng từ ngưỡng LOS và tốc độ tương đối, trình bày ở Chương 6), chất lượng gom cụm được đánh giá bổ sung bằng các chỉ số ngoại bộ: \textbf{ARI}~\cite{hubert} (mức đồng thuận cặp điểm giữa hai phân hoạch, hiệu chỉnh ngẫu nhiên), \textbf{NMI} (thông tin chia sẻ đã chuẩn hóa), \textbf{FMI}/\textbf{F-Measure} (hình học trung bình của độ chính xác và độ phủ) và \textbf{Entropy} (mức hỗn tạp nhãn trong cụm, càng thấp càng tốt).
 
 \section{Nguồn dữ liệu giao thông và thời tiết}
 Đề tài tổng hợp dữ liệu từ bốn nguồn, mỗi nguồn đảm nhận một nhóm thuộc tính và được thu thập định kỳ thành các snapshot. Bảng~\ref{tab:sources} so sánh vai trò và đặc điểm của từng nguồn.

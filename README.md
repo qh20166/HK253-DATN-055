@@ -27,10 +27,9 @@ HK253-DATN-055/
 │   ├── admin_ui.py                    #   Trang quản trị /admin (login + dashboard)
 │   ├── train_model.py                 #   Pipeline huấn luyện Random Forest
 │   └── models/                        #   speed_rf.joblib + cluster_model.json + meta
-├── BaoCao/                            # Báo cáo đồ án (LaTeX) + PDF + câu hỏi phản biện
+├── BaoCao/                            # Báo cáo đồ án (LaTeX) + PDF xuất bản
 │   ├── HK253-DATN-055_2211288.pdf     #   Báo cáo chính (nộp Khoa)
-│   ├── cauhoi_phanbien.pdf            #   25 câu hỏi phản biện + đáp án
-│   └── *.tex, figures/                #   Nguồn LaTeX + hình minh họa
+│   │   └── *.tex, figures/                #   Nguồn LaTeX + hình minh họa
 └── HUONG_DAN_FIREBASE_SERVER.md       # Hướng dẫn sửa Firebase Rules + chạy server
 ```
 
