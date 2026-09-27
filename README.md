@@ -64,6 +64,14 @@ uvicorn app:app --host 0.0.0.0 --port 8000
 
 Chi tiết vận hành (Firebase Rules, deploy Render, refresher live) xem [HUONG_DAN_FIREBASE_SERVER.md](HUONG_DAN_FIREBASE_SERVER.md).
 
+## Các repository liên quan
+
+| Repository | Nội dung |
+|---|---|
+| [qh20166/TraffiGo](https://github.com/qh20166/TraffiGo) | Ứng dụng Android (repo phát triển chính) |
+| [qh20166/traffigo-ml-server](https://github.com/qh20166/traffigo-ml-server) | Server ML triển khai độc lập (dùng bởi Render) |
+| [qh20166/DATN_172](https://github.com/qh20166/DATN_172) | Dữ liệu huấn luyện và pipeline phân tích |
+
 ## Dữ liệu
 
 Snapshot giao thông đa nguồn và pipeline dữ liệu nằm tại repository liên quan: [qh20166/DATN_172](https://github.com/qh20166/DATN_172) (thư mục `DATA/`, `DATN/`).
